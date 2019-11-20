@@ -8,11 +8,17 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
+  //Logging
+  "ch.qos.logback"       % "logback-classic" % "1.3.0-alpha5",
+  "ch.qos.logback"       % "logback-core"    % "1.3.0-alpha5",
+  "org.fusesource.jansi" % "jansi"           % "1.18",
+  "org.slf4j"            % "slf4j-api"       % "2.0.0-alpha1",
+  // Testing
   "org.scalactic" %% "scalactic" % "3.0.8",
   "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
 
 addCommandAlias(
   "build-complete",
-  "; scalafmtSbtCheck ; scalafmtCheck ; compile ; test"
+  "; scalafmtSbtCheck ; scalafmtCheck ; scalastyle ; compile ; test"
 )
