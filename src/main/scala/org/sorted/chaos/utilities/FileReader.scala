@@ -3,7 +3,7 @@ package org.sorted.chaos.utilities
 import org.slf4j.LoggerFactory
 
 import scala.io.Source
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Failure, Success, Try }
 
 object FileReader {
   private final val Log = LoggerFactory.getLogger(this.getClass)
