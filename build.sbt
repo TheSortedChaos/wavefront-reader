@@ -20,5 +20,10 @@ libraryDependencies ++= Seq(
 
 addCommandAlias(
   "build-complete",
-  "; scalafmtSbtCheck ; scalafmtCheck ; scalastyle ; compile ; test"
+  "; scalafmtSbtCheck ; scalafmtCheck ; scalastyle ; compile ; test ; coverageReport"
 )
+
+// code coverage
+coverageEnabled := true
+coverageMinimum := 80
+coverageFailOnMinimum := true
