@@ -23,6 +23,9 @@ addCommandAlias(
   "; scalafmtSbtCheck ; scalafmtCheck ; scalastyle ; compile ; test ; coverageReport"
 )
 
+// use a separate scalasytle config for tests
+(scalastyleConfig in Test) := baseDirectory.value / "scalastyle-test-config.xml"
+
 // code coverage
 coverageEnabled := true
 coverageMinimum := 80
