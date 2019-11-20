@@ -4,8 +4,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>true</withJansi>
         <encoder>
-            <pattern>%blue(%d{yyyy-MM-dd HH:mm:ss.SSS}) | %cyan(%thread) | %highlight(%-5.5level) | %green(%class{36}) |
-                %green(%method) - %boldWhite(%msg%n)
+            <pattern>%blue(%d{yyyy-MM-dd HH:mm:ss.SSS}) | %cyan(%thread) | %highlight(%-5.5level) | %green(%class{36}) | %green(%method) - %boldWhite(%msg%n)
             </pattern>
         </encoder>
     </appender>
