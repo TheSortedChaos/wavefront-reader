@@ -14,5 +14,5 @@ libraryDependencies ++= Seq(
 
 addCommandAlias(
   "build-complete",
-  "; scalafmtSbtCheck ; scalafmtCheck ; compile ; test"
+  "; scalafmtSbtCheck ; scalafmtCheck ; scalastyle ; compile ; test"
 )
