@@ -32,7 +32,6 @@ object SimpleMesh {
         val point2 = wavefrontVertices(index2)
         val point3 = wavefrontVertices(index3)
 
-        val x = accumulator.vertices ++ point1.toArray
         SimpleMesh(
           vertices = accumulator.vertices ++ point1.toArray ++ point2.toArray ++ point3.toArray,
           color    = accumulator.color ++ color.toArray ++ color.toArray ++ color.toArray
