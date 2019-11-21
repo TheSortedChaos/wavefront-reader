@@ -2,7 +2,9 @@ package org.sorted.chaos.model
 
 import org.sorted.chaos.utilities.FileReader
 
-final case class Point(x: Float, y: Float, z: Float)
+final case class Point(x: Float, y: Float, z: Float) {
+  def toArray: Array[Float] = Array(x, y, z)
+}
 
 final case class Face(indexOfPoint1: Int, indexOfPoint2: Int, indexOfPoint3: Int)
 
