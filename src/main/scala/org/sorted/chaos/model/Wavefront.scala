@@ -6,7 +6,9 @@ final case class Point(x: Float, y: Float, z: Float) {
   def toArray: Array[Float] = Array(x, y, z)
 }
 
-final case class Face(indexOfPoint1: Int, indexOfPoint2: Int, indexOfPoint3: Int)
+final case class Face(indexOfPoint1: Int, indexOfPoint2: Int, indexOfPoint3: Int) {
+  def toArray: Array[Int] = Array(indexOfPoint1, indexOfPoint2, indexOfPoint3)
+}
 
 final case class Wavefront(vertices: Vector[Point], faces: Vector[Face])
 
@@ -17,7 +19,7 @@ object Wavefront {
 
   private def empty = Wavefront(Vector.empty[Point], Vector.empty[Face])
 
-  def createFrom(filename: String): Wavefront = {
+  def from(filename: String): Wavefront = {
     val lines = FileReader.read(filename)
     lines.foldLeft(Wavefront.empty) { (accumulator, line) =>
       {

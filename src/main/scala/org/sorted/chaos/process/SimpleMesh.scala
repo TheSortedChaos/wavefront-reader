@@ -18,7 +18,7 @@ final case class SimpleMesh(vertices: Array[Float], color: Array[Float])
 object SimpleMesh {
   private def empty = SimpleMesh(Array.emptyFloatArray, Array.emptyFloatArray)
 
-  def createFrom(wavefront: Wavefront, color: SolidColor): SimpleMesh = {
+  def from(wavefront: Wavefront, color: SolidColor): SimpleMesh = {
     val wavefrontVertices = wavefront.vertices
     val wavefrontFaces    = wavefront.faces
 
@@ -32,6 +32,7 @@ object SimpleMesh {
         val point2 = wavefrontVertices(index2)
         val point3 = wavefrontVertices(index3)
 
+        val x = accumulator.vertices ++ point1.toArray
         SimpleMesh(
           vertices = accumulator.vertices ++ point1.toArray ++ point2.toArray ++ point3.toArray,
           color    = accumulator.color ++ color.toArray ++ color.toArray ++ color.toArray

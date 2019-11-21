@@ -5,7 +5,7 @@ import org.scalatest.{ Matchers, WordSpec }
 class WavefrontTest extends WordSpec with Matchers {
   "A Wavefront" should {
     "be created from a text file" in {
-      val actual = Wavefront.createFrom("simple-cube.obj")
+      val actual = Wavefront.from("simple-cube.obj")
       actual shouldBe Wavefront(
         Vector(
           Point(1.0f, 1.0f, -1.0f),

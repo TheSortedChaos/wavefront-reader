@@ -15,7 +15,7 @@ class SimpleMeshTest extends WordSpec with Matchers {
       val wavefront = Wavefront(vertices, faces)
       val color     = SolidColor(0.3f, 0.4f, 0.5f)
 
-      val actual = SimpleMesh.createFrom(wavefront, color)
+      val actual = SimpleMesh.from(wavefront, color)
       actual.vertices should contain theSameElementsInOrderAs Array(3.0f, 3.0f, 3.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 2.0f)
       actual.color should contain theSameElementsInOrderAs Array(0.3f, 0.4f, 0.5f, 0.3f, 0.4f, 0.5f, 0.3f, 0.4f, 0.5f)
     }
