@@ -11,9 +11,9 @@ final case class Face(indexOfPoint1: Int, indexOfPoint2: Int, indexOfPoint3: Int
 final case class Wavefront(vertices: Vector[Point], faces: Vector[Face])
 
 object Wavefront {
-  private val Space = " "
+  private val Space       = " "
   private val VertexToken = "v"
-  private val FaceToken = "f"
+  private val FaceToken   = "f"
 
   private def empty = Wavefront(Vector.empty[Point], Vector.empty[Face])
 
