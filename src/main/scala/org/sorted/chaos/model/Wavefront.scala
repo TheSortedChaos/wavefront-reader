@@ -10,6 +10,8 @@ final case class Wavefront(vertices: Vector[Point], faces: Vector[Face])
 
 object Wavefront {
   private val Space = " "
+  private val VertexToken = "v"
+  private val FaceToken = "f"
 
   private def empty = Wavefront(Vector.empty[Point], Vector.empty[Face])
 
@@ -19,9 +21,9 @@ object Wavefront {
       {
         val parts = splitLine(line)
         parts(0) match {
-          case "v" =>
+          case VertexToken =>
             createVertex(accumulator, parts)
-          case "f" =>
+          case FaceToken =>
             createFace(accumulator, parts)
           case _ =>
             accumulator
