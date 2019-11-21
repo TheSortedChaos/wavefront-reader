@@ -8,4 +8,4 @@ addons:
     organization: "mwttg"
 script:
   - sbt ++$TRAVIS_SCALA_VERSION build-complete
-  - sonar-scanner
+  - sonar-scanner -sonar.projectKey=mwttg_wavefront-reader
