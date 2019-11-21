@@ -3,9 +3,9 @@ package org.sorted.chaos.model
 import org.scalatest.{ Matchers, WordSpec }
 
 class WavefrontTest extends WordSpec with Matchers {
-  "Wavefront" should {
+  "A Wavefront" should {
     "be created from a text file" in {
-      val actual = Wavefront.from("simple-cube.obj")
+      val actual = Wavefront.createFrom("simple-cube.obj")
       actual shouldBe Wavefront(
         Vector(
           Point(1.0f, 1.0f, -1.0f),

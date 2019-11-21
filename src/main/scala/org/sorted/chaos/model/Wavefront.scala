@@ -17,7 +17,7 @@ object Wavefront {
 
   private def empty = Wavefront(Vector.empty[Point], Vector.empty[Face])
 
-  def from(filename: String): Wavefront = {
+  def createFrom(filename: String): Wavefront = {
     val lines = FileReader.read(filename)
     lines.foldLeft(Wavefront.empty) { (accumulator, line) =>
       {

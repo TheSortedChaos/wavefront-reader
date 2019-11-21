@@ -13,16 +13,16 @@ final case class SolidColor(red: Float, green: Float, blue: Float) {
   def toArray: Array[Float] = Array(red, green, blue)
 }
 
-final case class Mesh(vertices: Array[Float], color: Array[Float])
+final case class SimpleMesh(vertices: Array[Float], color: Array[Float])
 
-object Mesh {
-  private def empty = Mesh(Array.emptyFloatArray, Array.emptyFloatArray)
+object SimpleMesh {
+  private def empty = SimpleMesh(Array.emptyFloatArray, Array.emptyFloatArray)
 
-  def from(wavefront: Wavefront, color: SolidColor): Mesh = {
+  def createFrom(wavefront: Wavefront, color: SolidColor): SimpleMesh = {
     val wavefrontVertices = wavefront.vertices
     val wavefrontFaces    = wavefront.faces
 
-    wavefrontFaces.foldLeft(Mesh.empty) { (accumulator, triangleDef) =>
+    wavefrontFaces.foldLeft(SimpleMesh.empty) { (accumulator, triangleDef) =>
       {
         val index1 = triangleDef.indexOfPoint1
         val index2 = triangleDef.indexOfPoint2
@@ -32,7 +32,7 @@ object Mesh {
         val point2 = wavefrontVertices(index2)
         val point3 = wavefrontVertices(index3)
 
-        Mesh(
+        SimpleMesh(
           vertices = accumulator.vertices ++ point1.toArray ++ point2.toArray ++ point3.toArray,
           color    = accumulator.color ++ color.toArray ++ color.toArray ++ color.toArray
         )
