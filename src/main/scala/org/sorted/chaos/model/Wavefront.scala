@@ -2,14 +2,20 @@ package org.sorted.chaos.model
 
 import org.sorted.chaos.utilities.FileReader
 
-final case class Point(x: Float, y: Float, z: Float)
+final case class Point(x: Float, y: Float, z: Float) {
+  def toArray: Array[Float] = Array(x, y, z)
+}
 
-final case class Face(indexOfPoint1: Int, indexOfPoint2: Int, indexOfPoint3: Int)
+final case class Face(indexOfPoint1: Int, indexOfPoint2: Int, indexOfPoint3: Int) {
+  def toArray: Array[Int] = Array(indexOfPoint1, indexOfPoint2, indexOfPoint3)
+}
 
 final case class Wavefront(vertices: Vector[Point], faces: Vector[Face])
 
 object Wavefront {
-  private val Space = " "
+  private val Space       = " "
+  private val VertexToken = "v"
+  private val FaceToken   = "f"
 
   private def empty = Wavefront(Vector.empty[Point], Vector.empty[Face])
 
@@ -19,9 +25,9 @@ object Wavefront {
       {
         val parts = splitLine(line)
         parts(0) match {
-          case "v" =>
+          case VertexToken =>
             createVertex(accumulator, parts)
-          case "f" =>
+          case FaceToken =>
             createFace(accumulator, parts)
           case _ =>
             accumulator
