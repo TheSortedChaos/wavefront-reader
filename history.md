@@ -8,7 +8,7 @@ I started working on transforming the wavefront (internal model) to something I 
 
 #### 2019-11-20
 I decided to play around with [LightWeight Java Game Engine][lwjgl] once again.
-Therefor I need some data structure to represent some geometry data.
+Therefore I need some data structure to represent some geometry data.
 Because I need some tools like [Blender][blender] to create geometry data, I need _something_ (a data structure) between Blender and a LWJGL-project.
 This _something_ will be: the [wavefront file format][wavefront] ([Wikipedia][wavefront-wiki]).
 It is:
