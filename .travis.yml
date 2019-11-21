@@ -3,6 +3,8 @@ scala:
   - 2.13.1
 jdk:
   - openjdk8
+git:
+  depth: false
 addons:
   sonarcloud:
     organization: "mwttg"
