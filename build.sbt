@@ -1,6 +1,7 @@
-ThisBuild / organization := "org.sorted.chaos"
-ThisBuild / scalaVersion := "2.13.1"
-ThisBuild / version := "0.1.0-SNAPSHOT"
+organization := "org.sorted.chaos"
+scalaVersion := "2.13.1"
+version := "0.1.0-SNAPSHOT"
+publishMavenStyle := true
 
 lazy val root = (project in file("."))
   .settings(
