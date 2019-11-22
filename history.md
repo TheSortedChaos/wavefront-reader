@@ -3,8 +3,14 @@
 Here you can see some documentation about the project history.
 
 #### 2019-11-22
-Read how to publish a lib locally for testing the wavefront-reader.
-I modified the `build.sbt` and can use `sbt publishLocal` for this.  
+I read how to publish a lib locally for testing the wavefront-reader.
+I modified the `build.sbt` and now I can use `sbt publishLocal` for this.
+I also tested with if a simple cube created with blender and exported as .obj file, is correctly transformed.
+Therefore I used a small LWJGL project, added the wavefront-reader dependency, read the .obj file and generated:
+* `SimpleMesh`
+* `SimpleIndexedMesh`
+
+The visualizations looked correct.
 
 #### 2019-11-21
 Finally I got the code-coverage import from [Travis-CI][travis-ci] into [SonarCloud][sonarcloud] working.
