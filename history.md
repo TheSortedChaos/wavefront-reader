@@ -2,6 +2,28 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-11-27
+I added the smooth group to the `Wavefront` data structure. 
+I assume I will need it later (when light is involved) for gouraud shading vs phong shading.
+I also refactored the process of creating the `Mesh`.
+Reading .obj files is done for every type I probably will need.
+At the moment only `SimpleMesh` and `SimpleIndexedMesh` is possible to create from an .obj file, the other ones will follow soon.
+
+#### 2019-11-25
+I added some tests for the wavefront read file process.
+
+#### 2019-11-24
+I modified the read .obj file / create `Wavefront` process.
+Triangulated geometry with the following definitions are now supported:
+* vertex - face
+* vertex - normal - face
+* vertex - texture - face
+* vertex - texture - normal - face
+
+Tests are missing, yet.
+Transformation from `Wavefront` to Mesh is missing, yet.
+I'm not really happy with the rewrite (No error handling, no validation, not so nice code).
+
 #### 2019-11-22
 I read how to publish a lib locally for testing the wavefront-reader.
 I modified the `build.sbt` and now I can use `sbt publishLocal` for this.

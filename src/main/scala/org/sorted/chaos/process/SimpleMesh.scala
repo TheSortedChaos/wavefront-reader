@@ -19,18 +19,19 @@ object SimpleMesh {
   private def empty = SimpleMesh(Array.emptyFloatArray, Array.emptyFloatArray)
 
   def from(wavefront: Wavefront, color: SolidColor): SimpleMesh = {
-    val wavefrontVertices = wavefront.vertices
-    val wavefrontFaces    = wavefront.faces
+    val wavefrontVertices  = wavefront.vertices
+    val wavefrontTriangles = wavefront.triangles
 
-    wavefrontFaces.foldLeft(SimpleMesh.empty) { (accumulator, triangleDef) =>
+    wavefrontTriangles.foldLeft(SimpleMesh.empty) { (accumulator, triangleDef) =>
       {
-        val index1 = triangleDef.indexOfPoint1
-        val index2 = triangleDef.indexOfPoint2
-        val index3 = triangleDef.indexOfPoint3
+        val index1 = triangleDef.index1
+        val index2 = triangleDef.index2
+        val index3 = triangleDef.index3
 
-        val point1 = wavefrontVertices(index1)
-        val point2 = wavefrontVertices(index2)
-        val point3 = wavefrontVertices(index3)
+        // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
+        val point1 = wavefrontVertices(index1.vertexIndex - 1)
+        val point2 = wavefrontVertices(index2.vertexIndex - 1)
+        val point3 = wavefrontVertices(index3.vertexIndex - 1)
 
         SimpleMesh(
           vertices = accumulator.vertices ++ point1.toArray ++ point2.toArray ++ point3.toArray,
