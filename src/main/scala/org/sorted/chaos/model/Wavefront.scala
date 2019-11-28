@@ -2,6 +2,8 @@ package org.sorted.chaos.model
 
 import org.slf4j.LoggerFactory
 
+import scala.util.{ Failure, Success, Try }
+
 /**
   * This model describes each index for one point of a triangle.
   *
@@ -67,6 +69,15 @@ final case class Wavefront(
     smoothShading: Boolean
 )
 
+final case class WavefrontUnvalidated(
+    vertices: Vector[Point],
+    triangles: Vector[Triangle],
+    normals: Vector[Point],
+    textures: Vector[UVCoordinate],
+    smoothShading: Boolean,
+    errors: Vector[String]
+)
+
 object Wavefront {
   private val Logger = LoggerFactory.getLogger(this.getClass)
 
@@ -82,6 +93,15 @@ object Wavefront {
   private val VertexNormalPattern        = """(\d+)//(\d+)""".r
   private val VertexPattern              = """(\d+)""".r
 
+  private val EmptyWavefrontUnvalidated = WavefrontUnvalidated(
+    Vector.empty[Point],
+    Vector.empty[Triangle],
+    Vector.empty[Point],
+    Vector.empty[UVCoordinate],
+    false,
+    Vector.empty[String]
+  )
+
   private[model] def empty =
     Wavefront(
       vertices      = Vector.empty[Point],
@@ -91,26 +111,70 @@ object Wavefront {
       smoothShading = false
     )
 
-  def from(lines: Vector[String]): Wavefront =
-    lines.foldLeft(Wavefront.empty) { (accWavefront, line) =>
+  def x(unvalidated: WavefrontUnvalidated): Try[Wavefront] =
+    if (unvalidated.errors.nonEmpty) {
+      val errorMsg =
+        s"""|The following error(s) occurred during reading the .obj file:
+            |${unvalidated.errors.mkString("\n")}
+           """.stripMargin
+      Failure(new IllegalArgumentException(errorMsg))
+    } else {
+      Success(
+        Wavefront(
+          vertices      = unvalidated.vertices,
+          triangles     = unvalidated.triangles,
+          normals       = unvalidated.normals,
+          textures      = unvalidated.textures,
+          smoothShading = unvalidated.smoothShading
+        )
+      )
+    }
+
+  def from(lines: Vector[String]): WavefrontUnvalidated =
+    lines.foldLeft(EmptyWavefrontUnvalidated) { (accWavefront, line) =>
       {
         val token = line.take(2).trim
         token match {
           case Vertex =>
             val point = createPointFrom(line)
-            accWavefront.copy(vertices = accWavefront.vertices :+ point)
+            point match {
+              case Left(error) =>
+                accWavefront.copy(errors = accWavefront.errors :+ error)
+              case Right(p) =>
+                accWavefront.copy(vertices = accWavefront.vertices :+ p)
+            }
           case Face =>
             val triangle = createTriangleFrom(line)
-            accWavefront.copy(triangles = accWavefront.triangles :+ triangle)
+            triangle match {
+              case Left(error) =>
+                accWavefront.copy(errors = accWavefront.errors :+ error)
+              case Right(tri) =>
+                accWavefront.copy(triangles = accWavefront.triangles :+ tri)
+            }
           case Texture =>
             val uvCoordinate = createUVCoordinateFrom(line)
-            accWavefront.copy(textures = accWavefront.textures :+ uvCoordinate)
+            uvCoordinate match {
+              case Left(error) =>
+                accWavefront.copy(errors = accWavefront.errors :+ error)
+              case Right(tex) =>
+                accWavefront.copy(textures = accWavefront.textures :+ tex)
+            }
           case Normal =>
             val point = createPointFrom(line)
-            accWavefront.copy(normals = accWavefront.normals :+ point)
+            point match {
+              case Left(error) =>
+                accWavefront.copy(errors = accWavefront.errors :+ error)
+              case Right(nor) =>
+                accWavefront.copy(normals = accWavefront.normals :+ nor)
+            }
           case SmoothShading =>
             val smoothShading = isSmoothShading(line)
-            accWavefront.copy(smoothShading = smoothShading)
+            smoothShading match {
+              case Left(error) =>
+                accWavefront.copy(errors = accWavefront.errors :+ error)
+              case Right(smo) =>
+                accWavefront.copy(smoothShading = smo)
+            }
           case _ =>
             accWavefront
         }
@@ -147,34 +211,68 @@ object Wavefront {
         )
     }
 
-    Triangle(
-      indexes(0),
-      indexes(1),
-      indexes(2)
-    )
+    if (indexes.length == 3) {
+      Right(
+        Triangle(
+          indexes(0),
+          indexes(1),
+          indexes(2)
+        )
+      )
+    } else {
+      Left("alalal")
+    }
   }
 
   private def isSmoothShading(line: String) = {
     val lineParts = line.split(Space)
-    if (lineParts(1) == "1") {
-      true
+    if (lineParts.length != 2) {
+      Left(
+        s"  * There are 2 arguments [token value] needed to parse the smooth-group, but ${lineParts.length} was/were found (source: '$line')."
+      )
     } else {
-      false
+      lineParts(1) match {
+        case "1"   => Right(true)
+        case "off" => Right(false)
+        case x =>
+          Left(s"  * The only values for a smooth-group are '1' and 'off', but '$x' was found.")
+      }
     }
   }
 
   private def createPointFrom(line: String) = {
-    val numbers = extractFloatsFrom(line)
-    Point(numbers(0), numbers(1), numbers(2))
+    val lineParts = line.split(Space)
+    if (lineParts.length != 4) {
+      Left(
+        s"  * There are 4 arguments [token number number number] needed to parse a vertex/normal coordinate, but ${lineParts.length} was/were found (source: '$line')."
+      )
+    } else {
+      val numbers = lineParts.tail.flatMap(_.toFloatOption)
+      if (numbers.length != 3) {
+        Left(
+          s"  * There are 3 numbers needed to parse a vertex/normal coordinate, but something could not transformed to a Float (source: '${lineParts.tail.mkString}')."
+        )
+      } else {
+        Right(Point(numbers(0), numbers(1), numbers(2)))
+      }
+    }
   }
 
   private def createUVCoordinateFrom(line: String) = {
-    val numbers = extractFloatsFrom(line)
-    UVCoordinate(numbers(0), numbers(1))
-  }
-
-  private def extractFloatsFrom(line: String) = {
     val lineParts = line.split(Space)
-    lineParts.tail.map(_.toFloat)
+    if (lineParts.length != 3) {
+      Left(
+        s"  * There are 3 arguments [token number number] needed to parse a texture coordinate, but only ${lineParts.length} was/were found (source: '$line')."
+      )
+    } else {
+      val numbers = lineParts.tail.flatMap(_.toFloatOption)
+      if (numbers.length != 2) {
+        Left(
+          s"  * There are 2 numbers needed to parse a texture coordinate, but something could not transformed to a Float (source: '${lineParts.tail.mkString})'."
+        )
+      } else {
+        Right(UVCoordinate(numbers(0), numbers(1)))
+      }
+    }
   }
 }

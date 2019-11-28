@@ -5,6 +5,23 @@ import org.scalatest.{ Matchers, WordSpec }
 class WavefrontTest extends WordSpec with Matchers {
   "A Wavefront" should {
 
+    "x" in {
+      val input = Vector(
+        "v 1.0 1.0 1.0",
+        "v 1.0 1.0 0.0",
+        "v 4.0 4.0 0.0",
+        "v 1.0 4.0 0.0",
+        "s x",
+        "f 1 2 2",
+        "f 1 3 4"
+      )
+
+      val actual = Wavefront.from(input)
+      val x = Wavefront.x(actual)
+      // println(x.get)
+      x shouldBe Wavefront.empty
+    }
+
     "handle a broken .obj file" in {
       val input = Vector(
         "v 1.0 1.0",

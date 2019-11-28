@@ -2,6 +2,14 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-11-28
+I added error handling for .obj file reading.
+Now if something cannot parsed correctly it will be added to a list of errors.
+This list of errors is later used to create an `IllegalArgumentException`.
+The .obj file reading is now returning a `Try` (`Success(wavefront)` or `Failure(exception)`).
+Triangle validation is still missing.
+Tests are still missing.
+
 #### 2019-11-27
 I added the smooth group to the `Wavefront` data structure. 
 I assume I will need it later (when light is involved) for gouraud shading vs phong shading.
