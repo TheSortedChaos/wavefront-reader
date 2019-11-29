@@ -1,7 +1,7 @@
 package org.sorted.chaos.process
 
 import org.scalatest.{ Matchers, WordSpec }
-import org.sorted.chaos.model.{ Index, Point, Triangle, UVCoordinate, Wavefront }
+import org.sorted.chaos.wavefront.reader.{ Indices, Point, Triangle, UVCoordinate, Wavefront }
 
 class SimpleMeshTest extends WordSpec with Matchers {
   "A SimpleMesh" should {
@@ -14,14 +14,14 @@ class SimpleMeshTest extends WordSpec with Matchers {
       )
       val triangles = Vector(
         Triangle(
-          Index(1, None, None),
-          Index(2, None, None),
-          Index(3, None, None)
+          Indices(1, None, None),
+          Indices(2, None, None),
+          Indices(3, None, None)
         ),
         Triangle(
-          Index(1, None, None),
-          Index(3, None, None),
-          Index(4, None, None)
+          Indices(1, None, None),
+          Indices(3, None, None),
+          Indices(4, None, None)
         )
       )
 

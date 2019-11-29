@@ -2,6 +2,12 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-11-29
+I refactored the whole error handling, extracted some objects/methods and restructured the packages.
+Triangle validation is done.
+Tests are still missing.
+Logging is still missing.
+
 #### 2019-11-28
 I added error handling for .obj file reading.
 Now if something cannot parsed correctly it will be added to a list of errors.
