@@ -2,6 +2,9 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-11-30
+I added the missing tests.
+
 #### 2019-11-29
 I refactored the whole error handling, extracted some objects/methods and restructured the packages.
 Triangle validation is done.

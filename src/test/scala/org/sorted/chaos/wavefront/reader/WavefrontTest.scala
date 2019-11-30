@@ -10,11 +10,10 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
     "handle a broken .obj file" in {
       val input = Vector(
         "v 1.0 1.0",
-        "v 4.0 1.0 0.0",
-        "v 4.0 4.0 0.0",
-        "v 1.0 4.0 0.0",
-        "f 1 2 2",
-        "f 1 3 4"
+        "vn 4.0 1.0 0.0 6.4",
+        "vt 4.0 4.0 0.0 4.3",
+        "f 1 2 2 1",
+        "s on"
       )
 
       val actual = Wavefront.from(input)
@@ -22,6 +21,10 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
       actual.failure.exception should have message
       """|The following error(s) occurred during reading the .obj file:
          |  * There are 4 arguments [token number number number] needed to parse a Vertex/Normal coordinate, but 3 argument(s) was/were found (source was: 'v 1.0 1.0').
+         |  * There are 4 arguments [token number number number] needed to parse a Vertex/Normal coordinate, but 5 argument(s) was/were found (source was: 'vn 4.0 1.0 0.0 6.4').
+         |  * There are 3 arguments [token number number] needed to parse a Texture coordinate, but 5 argument(s) was/were found (source was: 'vt 4.0 4.0 0.0 4.3').
+         |  * ParseError for Triangle definition - pattern consists of 4 arguments [token indices indices indices], but 5 argument(s) was/were found (source was: 'f 1 2 2 1').
+         |  * The only values for a smooth-group are '1' and 'off', but 'on' was found.
          """.stripMargin
     }
 
