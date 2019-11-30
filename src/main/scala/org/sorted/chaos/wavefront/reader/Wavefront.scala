@@ -30,7 +30,7 @@ object Wavefront {
   private val Normal        = "vn"
   private val SmoothShading = "s"
 
-  private def empty =
+  private[reader] def empty =
     Wavefront(
       vertices      = Vector.empty[Point],
       triangles     = Vector.empty[Triangle],

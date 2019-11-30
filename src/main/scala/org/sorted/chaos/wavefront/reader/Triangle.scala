@@ -38,20 +38,20 @@ object Triangle {
     val lineParts = line.split(Space)
     val trianglePoints = lineParts.tail.map {
       case VertexTextureNormalPattern(vertex, texture, normal) =>
-        createIndicesFromVertexTextureNormalPattern(vertex, texture, normal, line)
+        createIndicesFromVertexTextureNormalPattern(vertex, texture, normal)
       case VertexTexturePattern(vertex, texture) =>
-        createIndicesFromVertexTexturePattern(vertex, texture, line)
+        createIndicesFromVertexTexturePattern(vertex, texture)
       case VertexNormalPattern(vertex, normal) =>
-        createIndicesFromVertexNormalPattern(vertex, normal, line)
+        createIndicesFromVertexNormalPattern(vertex, normal)
       case VertexPattern(vertex) =>
-        createIndicesFromVertexPattern(vertex, line)
+        createIndicesFromVertexPattern(vertex)
       case _ => Left(s"  * ParseError for Triangle definition - no pattern found for '$line'")
     }
 
     if (lineParts.length != 4) {
       Left(
         "  * ParseError for Triangle definition - pattern consists of 4 arguments [token indices indices indices], but " +
-        s"${line.length} argument(s) was/were found (source was: '$line')."
+        s"${lineParts.length} argument(s) was/were found (source was: '$line')."
       )
     } else if (trianglePoints(0).isLeft || trianglePoints(1).isLeft || trianglePoints(2).isLeft) {
       val lefts        = trianglePoints.filter(item => item.isLeft)
@@ -69,122 +69,40 @@ object Triangle {
     }
   }
 
-  private def createIndicesFromVertexTextureNormalPattern(vertex: String, texture: String, normal: String, line: String) =
-    (vertex.toIntOption, texture.toIntOption, normal.toIntOption) match {
-      case (None, None, None) =>
-        Left(
-          "  * ParseError inside Triangle definition [f v/vt/vn v/vt/vn v/vt/vn] VertexIndex, TextureIndex and NormalIndex " +
-          "could not transformed to an Int " +
-          s"(source was: VertexIndex='$vertex' TextureIndex='$texture' NormalIndex='$normal' line was: '$line')."
-        )
-      case (Some(_), None, None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt/vn v/vt/vn v/vt/vn] TextureIndex and NormalIndex could not " +
-          s"transformed to an Int (source was: TextureIndex='$texture' NormalIndex='$normal' line was: '$line')."
-        )
-      case (None, Some(_), None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt/vn v/vt/vn v/vt/vn] VertexIndex and NormalIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' NormalIndex='$normal' line was: '$line')."
-        )
-      case (None, None, Some(_)) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt/vn v/vt/vn v/vt/vn] VertexIndex and TextureIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' TextureIndex='$texture' line was: '$line')."
-        )
-      case (Some(_), Some(_), None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt/vn v/vt/vn v/vt/vn] NormalIndex could not " +
-          s"transformed to an Int (source was: NormalIndex='$normal' line was: '$line')."
-        )
-      case (Some(_), None, Some(_)) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt/vn v/vt/vn v/vt/vn] TextureIndex could not " +
-          s"transformed to an Int (source was: TextureIndex='$texture' line was: '$line')."
-        )
-      case (None, Some(_), Some(_)) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt/vn v/vt/vn v/vt/vn] VertexIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' line was: '$line')."
-        )
-      case (Some(v), Some(t), Some(n)) =>
-        Right(
-          Indices(
-            vertexIndex  = v,
-            textureIndex = Some(t),
-            normalIndex  = Some(n)
-          )
-        )
-    }
+  private def createIndicesFromVertexTextureNormalPattern(vertex: String, texture: String, normal: String) =
+    Right(
+      Indices(
+        vertexIndex  = vertex.toInt,
+        textureIndex = Some(texture.toInt),
+        normalIndex  = Some(normal.toInt)
+      )
+    )
 
-  private def createIndicesFromVertexTexturePattern(vertex: String, texture: String, line: String) =
-    (vertex.toIntOption, texture.toIntOption) match {
-      case (None, None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt v/vt v/vt] VertexIndex and TextureIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' TextureIndex='$texture' line was: '$line')."
-        )
-      case (Some(_), None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt v/vt v/vt] TextureIndex could not " +
-          s"transformed to an Int (source was: TextureIndex='$texture' line was: '$line')."
-        )
-      case (None, Some(_)) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v/vt v/vt v/vt] VertexIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' line was: '$line')."
-        )
-      case (Some(v), Some(t)) =>
-        Right(
-          Indices(
-            vertexIndex  = v,
-            textureIndex = Some(t),
-            normalIndex  = None
-          )
-        )
-    }
+  private def createIndicesFromVertexTexturePattern(vertex: String, texture: String) =
+    Right(
+      Indices(
+        vertexIndex  = vertex.toInt,
+        textureIndex = Some(texture.toInt),
+        normalIndex  = None
+      )
+    )
 
-  private def createIndicesFromVertexNormalPattern(vertex: String, normal: String, line: String) =
-    (vertex.toIntOption, normal.toIntOption) match {
-      case (None, None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v//vn v//vn v//vn] VertexIndex and NormalIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' NormalIndex='$normal' line was: '$line')."
-        )
-      case (Some(_), None) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v//vn v//vn v//vn] NormalIndex could not " +
-          s"transformed to an Int (source was: NormalIndex='$normal' line was: '$line')."
-        )
-      case (None, Some(_)) =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v//vn v//vn v//vn] VertexIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' line was: '$line')."
-        )
-      case (Some(v), Some(n)) =>
-        Right(
-          Indices(
-            vertexIndex  = v,
-            textureIndex = None,
-            normalIndex  = Some(n)
-          )
-        )
-    }
+  private def createIndicesFromVertexNormalPattern(vertex: String, normal: String) =
+    Right(
+      Indices(
+        vertexIndex  = vertex.toInt,
+        textureIndex = None,
+        normalIndex  = Some(normal.toInt)
+      )
+    )
 
-  private def createIndicesFromVertexPattern(vertex: String, line: String) =
-    vertex.toIntOption match {
-      case None =>
-        Left(
-          "  * ParseError inside TriangleDefinition [f v v v] VertexIndex could not " +
-          s"transformed to an Int (source was: VertexIndex='$vertex' line was: '$line')."
-        )
-      case Some(value) =>
-        Right(
-          Indices(
-            vertexIndex  = value,
-            textureIndex = None,
-            normalIndex  = None
-          )
-        )
-    }
+  private def createIndicesFromVertexPattern(vertex: String) =
+    Right(
+      Indices(
+        vertexIndex  = vertex.toInt,
+        textureIndex = None,
+        normalIndex  = None
+      )
+    )
+
 }
