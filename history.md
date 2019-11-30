@@ -3,7 +3,7 @@
 Here you can see some documentation about the project history.
 
 #### 2019-11-30
-I added the missing tests.
+I added the missing tests, restructure some more packages and added the `SimpleTextureMesh` which can be created from a wavefront.
 
 #### 2019-11-29
 I refactored the whole error handling, extracted some objects/methods and restructured the packages.

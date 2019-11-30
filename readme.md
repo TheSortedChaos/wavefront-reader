@@ -6,12 +6,13 @@ Wavefront (.obj) files are used to store geometric data, like geometric objects 
 These files are read, validated and the get transformed into an internal model and in the next step this internal model is transformed to a `Mesh` object.
 There are several kinds of Meshes, like:
 
-| Mesh Type         |  Provided Data                                                         | 
-|:------------------|:-----------------------------------------------------------------------|
-| `SimpleMesh`      | `vertices: Array[Float]`, `color: Array[Float]`                        |
-| `SimpleIndexMesh` | `vertices: Array[Float]`, `color: Array[Float]`, `indexes: Array[Int]` |
+| Mesh Type            |  Provided Data                                                            | 
+|:---------------------|:--------------------------------------------------------------------------|
+| `SimpleMesh`         | `vertices: Array[Float]`, `color: Array[Float]`                           |
+| `SimpleIndexMesh`    | `vertices: Array[Float]`, `color: Array[Float]`, `indexes: Array[Int]`    |
+| `SimpleTexturedMesh` | `vertices: Array[Float]`, `textures: Array[Float]`                        |
  
-This Mesh object can than be used for filling a [VertexBufferObject][vertexBufferObject] from OpenGL (e.g. with [LWJGL][lwjgl])
+These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexBufferObject] from OpenGL (e.g. with [LWJGL][lwjgl])
 
 ## Requirements
 * Scala 2.13.1
