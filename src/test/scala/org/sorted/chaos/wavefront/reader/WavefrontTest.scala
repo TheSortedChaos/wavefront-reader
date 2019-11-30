@@ -13,7 +13,8 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
         "vn 4.0 1.0 0.0 6.4",
         "vt 4.0 4.0 0.0 4.3",
         "f 1 2 2 1",
-        "s on"
+        "s on",
+        "s 3 2"
       )
 
       val actual = Wavefront.from(input)
@@ -25,6 +26,7 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
          |  * There are 3 arguments [token number number] needed to parse a Texture coordinate, but 5 argument(s) was/were found (source was: 'vt 4.0 4.0 0.0 4.3').
          |  * ParseError for Triangle definition - pattern consists of 4 arguments [token indices indices indices], but 5 argument(s) was/were found (source was: 'f 1 2 2 1').
          |  * The only values for a smooth-group are '1' and 'off', but 'on' was found.
+         |  * There are 2 arguments [token value] needed to parse the smooth-group, but 3 was/were found (source: 's 3 2').
          """.stripMargin
     }
 
@@ -216,6 +218,10 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
           smoothShading = false
         )
       )
+    }
+
+    "the constant Space is a ' ' (only to increase the coverage)" in {
+      Wavefront.Space shouldBe " "
     }
   }
 }
