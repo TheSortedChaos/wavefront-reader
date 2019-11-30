@@ -1,6 +1,6 @@
 package org.sorted.chaos.process
 
-import org.sorted.chaos.model.Wavefront
+import org.sorted.chaos.wavefront.reader.Wavefront
 
 /**
   * This class represents the color of the Mesh, when not having a texture
@@ -24,9 +24,9 @@ object SimpleMesh {
 
     wavefrontTriangles.foldLeft(SimpleMesh.empty) { (accumulator, triangleDef) =>
       {
-        val index1 = triangleDef.index1
-        val index2 = triangleDef.index2
-        val index3 = triangleDef.index3
+        val index1 = triangleDef.point1
+        val index2 = triangleDef.point2
+        val index3 = triangleDef.point3
 
         // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
         val point1 = wavefrontVertices(index1.vertexIndex - 1)

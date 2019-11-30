@@ -2,6 +2,23 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-11-30
+I added the missing tests.
+
+#### 2019-11-29
+I refactored the whole error handling, extracted some objects/methods and restructured the packages.
+Triangle validation is done.
+Tests are still missing.
+Logging is still missing.
+
+#### 2019-11-28
+I added error handling for .obj file reading.
+Now if something cannot parsed correctly it will be added to a list of errors.
+This list of errors is later used to create an `IllegalArgumentException`.
+The .obj file reading is now returning a `Try` (`Success(wavefront)` or `Failure(exception)`).
+Triangle validation is still missing.
+Tests are still missing.
+
 #### 2019-11-27
 I added the smooth group to the `Wavefront` data structure. 
 I assume I will need it later (when light is involved) for gouraud shading vs phong shading.
@@ -27,7 +44,7 @@ I'm not really happy with the rewrite (No error handling, no validation, not so 
 #### 2019-11-22
 I read how to publish a lib locally for testing the wavefront-reader.
 I modified the `build.sbt` and now I can use `sbt publishLocal` for this.
-I also tested with if a simple cube created with blender and exported as .obj file, is correctly transformed.
+I also tested, if a simple cube created with blender and exported as .obj file, is correctly transformed.
 Therefore I used a small LWJGL project, added the wavefront-reader dependency, read the .obj file and generated:
 * `SimpleMesh`
 * `SimpleIndexedMesh`

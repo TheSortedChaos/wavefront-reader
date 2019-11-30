@@ -1,6 +1,6 @@
 package org.sorted.chaos.process
 
-import org.sorted.chaos.model.Wavefront
+import org.sorted.chaos.wavefront.reader.Wavefront
 
 final case class SimpleIndexedMesh(vertices: Array[Float], color: Array[Float], indexes: Array[Int])
 
