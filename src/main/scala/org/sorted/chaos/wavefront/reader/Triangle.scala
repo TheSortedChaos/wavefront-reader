@@ -29,10 +29,10 @@ final case class Triangle(point1: Indices, point2: Indices, point3: Indices) {
 }
 
 object Triangle {
-  private val VertexTextureNormalPattern = """(\d+)/(\d+)/(\d+)""".r
-  private val VertexTexturePattern       = """(\d+)/(\d+)""".r
-  private val VertexNormalPattern        = """(\d+)//(\d+)""".r
-  private val VertexPattern              = """(\d+)""".r
+  private final val VertexTextureNormalPattern = """(\d+)/(\d+)/(\d+)""".r
+  private final val VertexTexturePattern       = """(\d+)/(\d+)""".r
+  private final val VertexNormalPattern        = """(\d+)//(\d+)""".r
+  private final val VertexPattern              = """(\d+)""".r
 
   def from(line: String): Either[String, Triangle] = {
     val lineParts = line.split(Space)

@@ -219,9 +219,5 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
         )
       )
     }
-
-    "the constant Space is a ' ' (only to increase the coverage)" in {
-      Wavefront.Space shouldBe " "
-    }
   }
 }

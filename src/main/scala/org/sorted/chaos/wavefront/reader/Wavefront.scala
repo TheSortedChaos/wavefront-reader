@@ -22,13 +22,13 @@ final case class Wavefront(
 private final case class WavefrontWithErrors(wavefront: Wavefront, errors: Vector[String])
 
 object Wavefront {
-  final val Space = " "
+  private[reader] final val Space = " "
 
-  private val Vertex        = "v"
-  private val Face          = "f"
-  private val Texture       = "vt"
-  private val Normal        = "vn"
-  private val SmoothShading = "s"
+  private final val Vertex        = "v"
+  private final val Face          = "f"
+  private final val Texture       = "vt"
+  private final val Normal        = "vn"
+  private final val SmoothShading = "s"
 
   private[reader] def empty =
     Wavefront(
