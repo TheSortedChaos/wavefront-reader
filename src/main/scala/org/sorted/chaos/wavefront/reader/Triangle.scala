@@ -27,8 +27,6 @@ final case class Indices(vertexIndex: Int, textureIndex: Option[Int], normalInde
 final case class Triangle(point1: Indices, point2: Indices, point3: Indices) {
 
   def asVector: Vector[Indices] = Vector(point1, point2, point3)
-
-  def indicesToVector: Vector[Indices] = Vector(point1, point2, point3)
 }
 
 object Triangle {

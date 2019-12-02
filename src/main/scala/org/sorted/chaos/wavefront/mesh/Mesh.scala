@@ -16,7 +16,7 @@ final case class SolidColor(red: Float, green: Float, blue: Float) {
 trait Mesh {
 
   def getTexturesOfTriangle(triangle: Triangle, textures: Vector[UVCoordinate]): Array[Float] = {
-    val indices = triangle.indicesToVector
+    val indices = triangle.asVector
 
     // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
     val texture1 = textures(indices(0).textureIndex.get - 1)
@@ -27,7 +27,7 @@ trait Mesh {
   }
 
   def getVerticesOfTriangle(triangle: Triangle, vertices: Vector[Point]): Array[Float] = {
-    val indices = triangle.indicesToVector
+    val indices = triangle.asVector
 
     // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
     val point1 = vertices(indices(0).vertexIndex - 1)
