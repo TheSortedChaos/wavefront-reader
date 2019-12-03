@@ -1,4 +1,4 @@
-package org.sorted.chaos.utilities
+package org.sorted.chaos.wavefront.utilities
 
 import org.slf4j.LoggerFactory
 

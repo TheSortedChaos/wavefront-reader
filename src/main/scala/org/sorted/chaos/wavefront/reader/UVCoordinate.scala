@@ -10,7 +10,9 @@ import org.sorted.chaos.wavefront.reader.Wavefront.Space
   * @param u coordinate
   * @param v coordinate
   */
-final case class UVCoordinate(u: Float, v: Float)
+final case class UVCoordinate(u: Float, v: Float) {
+  def toArray: Array[Float] = Array(u, v)
+}
 
 object UVCoordinate {
   def from(line: String): Either[String, UVCoordinate] = {

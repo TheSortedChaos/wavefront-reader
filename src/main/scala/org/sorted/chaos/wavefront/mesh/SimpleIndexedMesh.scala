@@ -1,4 +1,4 @@
-package org.sorted.chaos.process
+package org.sorted.chaos.wavefront.mesh
 
 import org.sorted.chaos.wavefront.reader.Wavefront
 

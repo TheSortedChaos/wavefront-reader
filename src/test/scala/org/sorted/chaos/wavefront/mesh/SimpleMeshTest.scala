@@ -1,7 +1,7 @@
-package org.sorted.chaos.process
+package org.sorted.chaos.wavefront.mesh
 
-import org.scalatest.{ Matchers, WordSpec }
-import org.sorted.chaos.wavefront.reader.{ Indices, Point, Triangle, UVCoordinate, Wavefront }
+import org.scalatest.{Matchers, WordSpec}
+import org.sorted.chaos.wavefront.reader.{Indices, Point, Triangle, UVCoordinate, Wavefront}
 
 class SimpleMeshTest extends WordSpec with Matchers {
   "A SimpleMesh" should {
