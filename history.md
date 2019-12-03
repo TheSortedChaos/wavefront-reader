@@ -2,6 +2,25 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-12-03
+I used the prototype and embedded it into the code.
+Some refactoring happened and missing tests were added.
+I am not fully happy with the architecture, SimpleMesh, TexturedMesh and the indexed versions are not linked and stand there as own classes/objects.
+Not sure which pattern I can apply here.
+I  extracted some helper function into a `Mesh` trait, but this trait is only be used for non-indexed versions.
+The problem at the moment is the following: I have:
+
+* `SimpleMesh(vertices: Array[Float], color: Array[Float])`
+* `SimpleIndexedMesh(vertices: Array[Float], color: Array[Float], indexes: Float[Int]`
+* `TexturedMesh(vertices: Array[Float], textures; Array[Float]`
+* `TexturedIndexedMesh(vertices: Array[Float], textures: Array[Float], indexes: Float[Int]`
+
+but I dont have a (good) level of abstraction.
+This problem is hopefully solved in a later refactoring ;-/
+
+#### 2019-12-02
+I added a prototype function for re-ordering vertices and textures for index drawing
+
 #### 2019-11-30
 I added the missing tests, restructure some more packages and added the `SimpleTextureMesh` which can be created from a wavefront.
 

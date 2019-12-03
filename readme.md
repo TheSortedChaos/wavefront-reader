@@ -6,11 +6,12 @@ Wavefront (.obj) files are used to store geometric data, like geometric objects 
 These files are read, validated and the get transformed into an internal model and in the next step this internal model is transformed to a `Mesh` object.
 There are several kinds of Meshes, like:
 
-| Mesh Type            |  Provided Data                                                            | 
-|:---------------------|:--------------------------------------------------------------------------|
-| `SimpleMesh`         | `vertices: Array[Float]`, `color: Array[Float]`                           |
-| `SimpleIndexMesh`    | `vertices: Array[Float]`, `color: Array[Float]`, `indexes: Array[Int]`    |
-| `SimpleTexturedMesh` | `vertices: Array[Float]`, `textures: Array[Float]`                        |
+| Mesh Type             |  Provided Data                                                            | 
+|:----------------------|:--------------------------------------------------------------------------|
+| `SimpleMesh`          | `vertices: Array[Float]`, `color: Array[Float]`                           |
+| `SimpleIndexMesh`     | `vertices: Array[Float]`, `color: Array[Float]`, `indexes: Array[Int]`    |
+| `TexturedMesh`        | `vertices: Array[Float]`, `textures: Array[Float]`                        |
+| `TexturedIndexedMesh` | `vertices: Array[Float]`, `textures: Array[Float]`, `indexes: Array[Int]` |
  
 These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexBufferObject] from OpenGL (e.g. with [LWJGL][lwjgl])
 
