@@ -5,7 +5,7 @@ Here you can see some documentation about the project history.
 #### 2019-12-03
 I used the prototype and embedded it into the code.
 Some refactoring happened and missing tests were added.
-I am not fully happy with the architecture, SimpleMesh, TexturedMesh and the indexed versions are not linked and stand there as own classes/objects.
+I am not fully happy with the architecture, `SimpleMesh`, `TexturedMesh` and the indexed versions are not linked and stand there as own classes/objects.
 Not sure which pattern I can apply here.
 I  extracted some helper function into a `Mesh` trait, but this trait is only be used for non-indexed versions.
 The problem at the moment is the following: I have:
