@@ -2,6 +2,13 @@
 
 Here you can see some documentation about the project history.
 
+#### 2019-12-12
+Added support for creating meshes from a wavefront with vertices, textures and normals, but without index (for OpenGl IndexDrawing).
+Test was also added.
+* `TexturedNormalMesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float])`
+
+Now, loading a Mesh and apply light to it, should work. (I Have to test it, yet).
+
 #### 2019-12-03
 I used the prototype and embedded it into the code.
 Some refactoring happened and missing tests were added.
