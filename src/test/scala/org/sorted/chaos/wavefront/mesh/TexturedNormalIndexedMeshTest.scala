@@ -3,8 +3,8 @@ package org.sorted.chaos.wavefront.mesh
 import org.scalatest.{ Matchers, WordSpec }
 import org.sorted.chaos.wavefront.reader.{ Indices, Point, Triangle, UVCoordinate, Wavefront }
 
-class TexturedNormalMeshTest extends WordSpec with Matchers {
-  "A TexturedNormalMesh" should {
+class TexturedNormalIndexedMeshTest extends WordSpec with Matchers {
+  "A TexturedNormalIndexedMesh" should {
     "be created from a wavefront (with vertices, texture and normals definition)" in {
       val vertices = Vector(
         Point(1.0f, 1.0f, 0.0f),
@@ -45,13 +45,13 @@ class TexturedNormalMeshTest extends WordSpec with Matchers {
         smoothShading = false
       )
 
-      val actual = TexturedNormalMesh.from(input)
+      val actual = TexturedNormalIndexedMesh.from(input)
       actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 1.0f, 0.0f, 4.0f, 1.0f, 0.0f, 4.0f, 4.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 4.0f, 4.0f, 0.0f, 1.0f, 4.0f, 0.0f)
-      actual.textures should contain theSameElementsInOrderAs Array(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-        0.0f, 1.0f)
-      actual.normals should contain theSameElementsAs Array(0.1f, 0.1f, 0.0f, 0.4f, 0.1f, 0.0f, 0.4f, 0.4f, 0.0f, 0.1f, 0.1f,
-        0.0f, 0.4f, 0.4f, 0.0f, 0.1f, 0.4f, 0.0f)
+        4.0f, 0.0f)
+      actual.textures should contain theSameElementsInOrderAs Array(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f)
+      actual.normals should contain theSameElementsInOrderAs Array(0.1f, 0.1f, 0.0f, 0.4f, 0.1f, 0.0f, 0.4f, 0.4f, 0.0f, 0.1f,
+        0.4f, 0.0f)
+      actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 2, 3)
     }
   }
 }

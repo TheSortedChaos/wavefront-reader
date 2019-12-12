@@ -37,7 +37,16 @@ trait Mesh {
     point1.toArray ++ point2.toArray ++ point3.toArray
   }
 
-  def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Point]): Array[Float] = getVerticesOfTriangle(triangle, normals)
+  def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Point]): Array[Float] = {
+    val indices = triangle.asVector
+
+    // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
+    val point1 = normals(indices(0).normalIndex.get - 1)
+    val point2 = normals(indices(1).normalIndex.get - 1)
+    val point3 = normals(indices(2).normalIndex.get - 1)
+
+    point1.toArray ++ point2.toArray ++ point3.toArray
+  }
 
   def getColorOfTriangle(color: SolidColor): Array[Float] =
     Array(
