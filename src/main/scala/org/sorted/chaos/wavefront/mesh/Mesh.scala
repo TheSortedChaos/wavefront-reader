@@ -1,17 +1,6 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Point, Triangle, UVCoordinate }
-
-/**
-  * This model class represents the color of the Mesh (when not having a texture)
-  *
-  * @param red the amount of red a value between 0 and 1
-  * @param green the amount of green a value between 0 and 1
-  * @param blue the amount of blue a value between 0 and 1
-  */
-final case class SolidColor(red: Float, green: Float, blue: Float) {
-  def toArray: Array[Float] = Array(red, green, blue)
-}
+import org.sorted.chaos.wavefront.reader.{ Color, Point, Triangle, UVCoordinate }
 
 trait Mesh {
 
@@ -48,7 +37,7 @@ trait Mesh {
     point1.toArray ++ point2.toArray ++ point3.toArray
   }
 
-  def getColorOfTriangle(color: SolidColor): Array[Float] =
+  def getColorOfTriangle(color: Color): Array[Float] =
     Array(
       color.red,
       color.green,

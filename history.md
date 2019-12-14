@@ -1,6 +1,11 @@
 # History
 
-Here you can see some documentation about the project history.
+#### 2019-12-14
+I added the material file reader for .mtl files. 
+Now it is possible to read a material file for light processing.
+At the moment it is only an internal model, because I am not sure how I will need the data for the shader in OpenGL.
+I also thought about the validation process of the wavefront file (.obj) and I am not happy with it anymore.
+I think I will refactor it later so that it will look like the material file (.mtl) validation.
 
 #### 2019-12-12
 Added support for creating meshes from a wavefront with vertices, textures and normals, but without index (for OpenGl IndexDrawing).
