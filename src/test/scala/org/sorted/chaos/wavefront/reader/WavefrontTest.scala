@@ -1,19 +1,29 @@
 package org.sorted.chaos.wavefront.reader
 
-import org.scalatest.{ Matchers, TryValues, WordSpec }
+import org.scalatest.{ Matchers, WordSpec }
 
-class WavefrontTest extends WordSpec with Matchers with TryValues {
+class WavefrontTest extends WordSpec with Matchers {
+
   "A Wavefront" should {
-
-    "handle a broken .obj file" in {}
+    "handle broken lines of an .obj file" in {
+      val input = Vector(
+        "v 1.0 1.0",
+        "vn 4.0 1.0 0.0 6.4",
+        "vt 4.0 4.0 0.0 4.3",
+        "f 1 2 2 1",
+        "s on",
+        "s 3 2"
+      )
+      an[IllegalArgumentException] should be thrownBy Wavefront.from(input)
+    }
 
     "transform lines from an .obj file to a wavefront data structure - vertices and faces" in {
       val input = Vector(
+        "# a comment",
         "v 1.0 1.0 0.0",
         "v 4.0 1.0 0.0",
         "v 4.0 4.0 0.0",
         "v 1.0 4.0 0.0",
-        "s off",
         "f 1 2 3",
         "f 1 3 4"
       )
@@ -45,6 +55,7 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
 
     "transform lines from an .obj file to a wavefront data structure - vertices, textures and faces" in {
       val input = Vector(
+        "# a comment",
         "v 1.0 1.0 0.0",
         "v 4.0 1.0 0.0",
         "v 4.0 4.0 0.0",
@@ -53,7 +64,6 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
         "vt 1.0 0.0",
         "vt 1.0 1.0",
         "vt 0.0 1.0",
-        "s off",
         "f 1/1 2/2 3/3",
         "f 1/1 3/3 4/4"
       )
@@ -90,12 +100,12 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
 
     "transform lines from an .obj file to a wavefront data structure - vertices, normals and faces (smoothShading = true)" in {
       val input = Vector(
+        "# a comment",
         "v 1.0 1.0 0.0",
         "v 4.0 1.0 0.0",
         "v 4.0 4.0 0.0",
         "v 1.0 4.0 0.0",
         "vn 0.0 0.0 1.0",
-        "s 1",
         "f 1//1 2//1 3//1",
         "f 1//1 3//1 4//1"
       )
@@ -129,6 +139,7 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
 
     "transform lines from an .obj file to a wavefront data structure - vertices, textures, normals and faces" in {
       val input = Vector(
+        "# a comment",
         "v 1.0 1.0 0.0",
         "v 4.0 1.0 0.0",
         "v 4.0 4.0 0.0",
@@ -138,7 +149,6 @@ class WavefrontTest extends WordSpec with Matchers with TryValues {
         "vt 1.0 1.0",
         "vt 0.0 1.0",
         "vn 0.0 0.0 1.0",
-        "s off",
         "f 1/1/1 2/2/1 3/3/1",
         "f 1/1/1 3/3/1 4/4/1"
       )
