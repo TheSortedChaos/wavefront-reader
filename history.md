@@ -1,6 +1,18 @@
 # History
 
-Here you can see some documentation about the project history.
+#### 2019-12-14
+I added the material file reader for .mtl files. 
+Now it is possible to read a material file for light processing.
+At the moment it is only an internal model, because I am not sure how I will need the data for the shader in OpenGL.
+I also thought about the validation process of the wavefront file (.obj) and I am not happy with it anymore.
+I think I will refactor it later so that it will look like the material file (.mtl) validation.
+
+#### 2019-12-12
+Added support for creating meshes from a wavefront with vertices, textures and normals, but without index (for OpenGl IndexDrawing).
+Test was also added.
+* `TexturedNormalMesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float])`
+
+Now, loading a Mesh and apply light to it, should work. (I Have to test it, yet).
 
 #### 2019-12-03
 I used the prototype and embedded it into the code.

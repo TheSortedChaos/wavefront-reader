@@ -1,11 +1,11 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.Wavefront
+import org.sorted.chaos.wavefront.reader.{ Color, Wavefront }
 
 final case class SimpleIndexedMesh(vertices: Array[Float], color: Array[Float], indexes: Array[Int])
 
 object SimpleIndexedMesh {
-  def from(wavefront: Wavefront, color: SolidColor): SimpleIndexedMesh = {
+  def from(wavefront: Wavefront, color: Color): SimpleIndexedMesh = {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTriangles = wavefront.triangles
 

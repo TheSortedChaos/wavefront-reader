@@ -1,17 +1,6 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Point, Triangle, UVCoordinate }
-
-/**
-  * This model class represents the color of the Mesh (when not having a texture)
-  *
-  * @param red the amount of red a value between 0 and 1
-  * @param green the amount of green a value between 0 and 1
-  * @param blue the amount of blue a value between 0 and 1
-  */
-final case class SolidColor(red: Float, green: Float, blue: Float) {
-  def toArray: Array[Float] = Array(red, green, blue)
-}
+import org.sorted.chaos.wavefront.reader.{ Color, Point, Triangle, UVCoordinate }
 
 trait Mesh {
 
@@ -37,9 +26,18 @@ trait Mesh {
     point1.toArray ++ point2.toArray ++ point3.toArray
   }
 
-  def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Point]): Array[Float] = getVerticesOfTriangle(triangle, normals)
+  def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Point]): Array[Float] = {
+    val indices = triangle.asVector
 
-  def getColorOfTriangle(color: SolidColor): Array[Float] =
+    // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
+    val point1 = normals(indices(0).normalIndex.get - 1)
+    val point2 = normals(indices(1).normalIndex.get - 1)
+    val point3 = normals(indices(2).normalIndex.get - 1)
+
+    point1.toArray ++ point2.toArray ++ point3.toArray
+  }
+
+  def getColorOfTriangle(color: Color): Array[Float] =
     Array(
       color.red,
       color.green,
