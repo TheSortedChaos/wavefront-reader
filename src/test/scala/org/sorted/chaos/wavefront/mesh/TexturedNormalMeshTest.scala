@@ -41,8 +41,7 @@ class TexturedNormalMeshTest extends WordSpec with Matchers {
         vertices      = vertices,
         triangles     = triangles,
         normals       = normals,
-        textures      = textures,
-        smoothShading = false
+        textures      = textures
       )
 
       val actual = TexturedNormalMesh.from(input)

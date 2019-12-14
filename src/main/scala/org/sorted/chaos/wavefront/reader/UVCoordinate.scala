@@ -1,7 +1,5 @@
 package org.sorted.chaos.wavefront.reader
 
-import org.sorted.chaos.wavefront.reader.Wavefront.Space
-
 /**
   * This model class represents the Texture definition of the .obj file, starting with `vt ...`
   * Example:
@@ -14,24 +12,27 @@ final case class UVCoordinate(u: Float, v: Float) {
   def toArray: Array[Float] = Array(u, v)
 }
 
-object UVCoordinate {
-  def from(line: String): Either[String, UVCoordinate] = {
-    val lineParts = line.split(Space)
-    val numbers   = lineParts.tail.flatMap(_.toFloatOption)
+object UVCoordinate extends FloatExtractor {
+  implicit class ExtractUVCoordinateFrom(val line: String) {
+    def getUVCoordinate: UVCoordinate = {
+      val tuple = extract(line)
+      validateInput(line, tuple.lineParts, tuple.numbers)
 
-    if (lineParts.length != 3) {
-      Left(
-        "  * There are 3 arguments [token number number] needed to parse a Texture coordinate, " +
-        s"but ${lineParts.length} argument(s) was/were found (source was: '$line')."
+      UVCoordinate(
+        u = tuple.numbers(0),
+        v = tuple.numbers(1)
       )
-    } else if (numbers.length != 2) {
-      Left(
-        "  * There are 2 numbers needed to parse a Texture coordinate, but something could not transformed " +
-        s"to a Float (source was: '$line)'."
+    }
+
+    private def validateInput(line: String, lineParts: Array[String], numbers: Array[Float]): Unit = {
+      require(
+        lineParts.length == 3,
+        s"Reading a 'Texture' needs 3 parts [token u v]. Found ${lineParts.length} part(s) in line '$line'."
       )
-    } else {
-      Right(UVCoordinate(numbers(0), numbers(1)))
+      require(
+        numbers.length == 2,
+        s"Reading a 'Texture' needs 2 Float numbers. Found ${numbers.length} Float number(s) in line '$line'."
+      )
     }
   }
-
 }

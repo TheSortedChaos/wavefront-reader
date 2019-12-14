@@ -18,9 +18,9 @@ object Color extends FloatExtractor {
       validateInput(line, tuple.lineParts, tuple.numbers)
 
       Color(
-        tuple.numbers(0),
-        tuple.numbers(1),
-        tuple.numbers(2)
+        red   = tuple.numbers(0),
+        green = tuple.numbers(1),
+        blue  = tuple.numbers(2)
       )
     }
 

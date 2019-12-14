@@ -3,33 +3,27 @@ package org.sorted.chaos.wavefront.reader
 import org.scalatest.{ Matchers, WordSpec }
 
 class PointTest extends WordSpec with Matchers {
+    import Point._
 
   "A Point" should {
-
-    "be created from a valid .obj file line, like 'v 1.0 1.0 1.0'" in {
-      val input  = "v 1.0 1.0 1.0"
-      val actual = Point.from(input)
-      actual shouldBe Right(
-        Point(1.0f, 1.0f, 1.0f)
-      )
+    "be extracted from a valid String" in {
+      val input  = "TOKEN 1.0 2.0 3.0"
+      input.getPoint shouldBe Point(1.0f, 2.0f, 3.0f)
     }
 
-    "create an error message, if the line does not contain exactly 4 parts [token number number number]" in {
-      val input  = "v 1.0 1.0 1.0 1.0"
-      val actual = Point.from(input)
-      actual shouldBe Left(
-        "  * There are 4 arguments [token number number number] needed to parse a Vertex/Normal coordinate, " +
-        "but 5 argument(s) was/were found (source was: 'v 1.0 1.0 1.0 1.0')."
-      )
+    "NOT be extracted from an invalid String - (one number missing)" in {
+      val input = "TOKEN 1.0 3.0"
+      the[IllegalArgumentException] thrownBy input.getPoint should have message "requirement failed: Reading a 'Vertex' or 'Normal' needs 4 parts [token x y z]. Found 3 part(s) in line 'TOKEN 1.0 3.0'."
     }
 
-    "create an error message, if the numbers could not parsed to Floats" in {
-      val input  = "v 1.0 1.a 1.0"
-      val actual = Point.from(input)
-      actual shouldBe Left(
-        "  * There are 3 numbers needed to parse a Vertex/Normal coordinate, but something could not transformed " +
-        "to a Float (source was: 'v 1.0 1.a 1.0')."
-      )
+    "NOT be extracted from an invalid String - (one number too much)" in {
+      val input = "TOKEN 1.0 2.0 3.0 4.0"
+      the[IllegalArgumentException] thrownBy input.getPoint should have message "requirement failed: Reading a 'Vertex' or 'Normal' needs 4 parts [token x y z]. Found 5 part(s) in line 'TOKEN 1.0 2.0 3.0 4.0'."
+    }
+
+    "NOT be extracted from an invalid String - (no Float number)" in {
+      val input = "TOKEN 1.0 2.0 ups"
+      the[IllegalArgumentException] thrownBy input.getPoint should have message "requirement failed: Reading a 'Vertex' or 'Normal' needs 3 Float numbers. Found 2 Float number(s) in line 'TOKEN 1.0 2.0 ups'."
     }
   }
 }

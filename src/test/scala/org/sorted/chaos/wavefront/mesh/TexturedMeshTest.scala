@@ -35,8 +35,7 @@ class TexturedMeshTest extends WordSpec with Matchers {
         vertices      = vertices,
         triangles     = triangles,
         normals       = Vector.empty[Point],
-        textures      = textures,
-        smoothShading = false
+        textures      = textures
       )
 
       val actual = TexturedMesh.from(input)

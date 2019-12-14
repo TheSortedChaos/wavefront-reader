@@ -44,7 +44,7 @@ object TexturedNormalIndexedMesh {
     val wavefrontNormals   = wavefront.normals
     val wavefrontTriangles = wavefront.triangles
 
-    val allIndices = wavefrontTriangles.flatMap(_.asVector)
+    val allIndices = wavefrontTriangles.flatMap(_.indices)
     val result = allIndices.foldLeft(emptyAccumulator) { (accumulator, indices) =>
       {
         if (accumulator.lookUpTable.contains(indices)) {

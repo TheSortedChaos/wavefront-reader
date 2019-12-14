@@ -29,8 +29,7 @@ class SimpleMeshTest extends WordSpec with Matchers {
         vertices      = vertices,
         triangles     = triangles,
         normals       = Vector.empty[Point],
-        textures      = Vector.empty[UVCoordinate],
-        smoothShading = false
+        textures      = Vector.empty[UVCoordinate]
       )
       val color = Color(0.3f, 0.4f, 0.5f)
 
