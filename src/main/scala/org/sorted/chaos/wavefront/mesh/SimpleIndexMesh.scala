@@ -2,10 +2,17 @@ package org.sorted.chaos.wavefront.mesh
 
 import org.sorted.chaos.wavefront.reader.{ Color, Wavefront }
 
-final case class SimpleIndexedMesh(vertices: Array[Float], color: Array[Float], indexes: Array[Int])
+/**
+  * This model class represents a [[SimpleIndexMesh]] with vertices, a color and an index list
+  *
+  * @param vertices the array of vertices for the VertexBufferObject
+  * @param color the array of the color for the VertexBufferObject
+  * @param indexes the array of the indexes (used for OpenGL index drawing)
+  */
+final case class SimpleIndexMesh(vertices: Array[Float], color: Array[Float], indexes: Array[Int])
 
-object SimpleIndexedMesh {
-  def from(wavefront: Wavefront, color: Color): SimpleIndexedMesh = {
+object SimpleIndexMesh {
+  def from(wavefront: Wavefront, color: Color): SimpleIndexMesh = {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTriangles = wavefront.triangles
 
@@ -17,6 +24,6 @@ object SimpleIndexedMesh {
         triangle.indices.map(_.vertexIndex - 1) // subtract 1 because of starting index obj vs scala (collection)
       })
       .toArray
-    SimpleIndexedMesh(vertices, col, indexes)
+    SimpleIndexMesh(vertices, col, indexes)
   }
 }

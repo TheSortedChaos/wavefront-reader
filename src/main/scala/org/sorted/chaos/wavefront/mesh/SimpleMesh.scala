@@ -3,14 +3,14 @@ package org.sorted.chaos.wavefront.mesh
 import org.sorted.chaos.wavefront.reader.{ Color, Wavefront }
 
 /**
-  * This model class represents a Mesh with vertices and a color, but without a index list
+  * This model class represents a [[SimpleMesh]] with vertices and a color, but without a index list
   *
   * @param vertices the array of vertices for the VertexBufferObject
-  * @param color the array of the color for the VertexBufferObject
+  * @param color    the array of the color for the VertexBufferObject
   */
 final case class SimpleMesh(vertices: Array[Float], color: Array[Float])
 
-object SimpleMesh extends Mesh {
+object SimpleMesh extends Geometry {
 
   private def empty = SimpleMesh(Array.emptyFloatArray, Array.emptyFloatArray)
 

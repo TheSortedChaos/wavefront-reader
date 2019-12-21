@@ -2,9 +2,17 @@ package org.sorted.chaos.wavefront.mesh
 
 import org.sorted.chaos.wavefront.reader.{ Indices, Point, UVCoordinate, Wavefront }
 
-final case class WavefrontIndexMesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float], indexes: Array[Int])
+/**
+  * This model class represents a [[IndexMesh]] with vertices, texture, normals, and an index list
+  *
+  * @param vertices the array of vertices for the VertexBufferObject
+  * @param textures the array of UV coordinates for the VertexBufferObject, will be empty, if no data for this type was found
+  * @param normals the array of normals for the VertexBufferObject, will be empty, if no data for this type was found
+  * @param indexes the array of the indexes (used for OpenGL index drawing)
+  */
+final case class IndexMesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float], indexes: Array[Int])
 
-object WavefrontIndexMesh {
+object IndexMesh {
 
   private final case class Accumulator(
       currentIndex: Int,
@@ -25,7 +33,7 @@ object WavefrontIndexMesh {
       Vector.empty[Int]
     )
 
-  def from(wavefront: Wavefront): WavefrontIndexMesh = {
+  def from(wavefront: Wavefront): IndexMesh = {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTextures  = wavefront.textures
     val wavefrontNormals   = wavefront.normals
@@ -55,7 +63,7 @@ object WavefrontIndexMesh {
     val normals  = result.normals.flatMap(_.toArray).toArray
     val indexes  = result.indexes.toArray
 
-    WavefrontIndexMesh(vertices, textures, normals, indexes)
+    IndexMesh(vertices, textures, normals, indexes)
   }
 
   private def addTextures(indices: Indices, accumulator: Accumulator, wavefrontTextures: Vector[UVCoordinate]) =

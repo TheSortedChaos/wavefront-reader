@@ -3,8 +3,8 @@ package org.sorted.chaos.wavefront.mesh
 import org.scalatest.{Matchers, WordSpec}
 import org.sorted.chaos.wavefront.reader.{Indices, Point, Triangle, UVCoordinate, Wavefront}
 
-class WavefrontIndexMeshTest extends WordSpec with Matchers {
-  "A WavefrontIndexMesh" should {
+class IndexMeshTest extends WordSpec with Matchers {
+  "A IndexMesh" should {
     "be created from a wavefront (with vertices, texture and normals definition)" in {
       val vertices = Vector(
         Point(1.0f, 1.0f, 0.0f),
@@ -44,7 +44,7 @@ class WavefrontIndexMeshTest extends WordSpec with Matchers {
         textures = textures
       )
 
-      val actual = WavefrontIndexMesh.from(input)
+      val actual = IndexMesh.from(input)
       actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 1.0f, 0.0f, 4.0f, 1.0f, 0.0f, 4.0f, 4.0f, 0.0f, 1.0f,
         4.0f, 0.0f)
       actual.textures should contain theSameElementsInOrderAs Array(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f)
@@ -85,7 +85,7 @@ class WavefrontIndexMeshTest extends WordSpec with Matchers {
         normals = Vector.empty[Point],
         textures = textures
       )
-      val actual = WavefrontIndexMesh.from(input)
+      val actual = IndexMesh.from(input)
       actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 1.0f, 0.0f, 4.0f, 1.0f, 0.0f, 4.0f, 4.0f, 0.0f, 1.0f,
         4.0f, 0.0f)
       actual.textures should contain theSameElementsInOrderAs Array(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f)

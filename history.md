@@ -1,5 +1,10 @@
 # History
 
+#### 2019-12-21
+I refactored the whole result classes (the Meshes).
+Instead of having one class for each type now there is only one type.
+If the data unit in the .obj file is not present the array will be empty in the result data structure.
+
 #### 2019-12-14
 I added the material file reader for .mtl files. 
 Now it is possible to read a material file for light processing.
