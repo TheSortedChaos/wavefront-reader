@@ -22,6 +22,7 @@ These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexB
 
 ### TODOs
 - add log messages
+- update readme
 
 [blender]: https://www.blender.org/
 [lwjgl]: https://www.lwjgl.org/

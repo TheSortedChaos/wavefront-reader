@@ -7,13 +7,13 @@ import org.sorted.chaos.wavefront.utilities.FileReader
 object WavefrontReader {
 
   /**
-    * This method creates a [[Mesh]] with
+    * This method creates a [[org.sorted.chaos.wavefront.mesh.Mesh]] with
     *  - vertices
     *  - textures (optional)
     *  - normals (optional)
     * from an .obj file
     * @param filename the .obj file (represents the input data)
-    * @return a [[Mesh]] with
+    * @return a [[org.sorted.chaos.wavefront.mesh.Mesh]] with
     *          - Array[Float] for vertices
     *          - Array[Float] for textures (is empty, if file does not contain this data type)
     *          - Array[Float] for normals (is empty, if file does not contain this data type)
@@ -24,7 +24,7 @@ object WavefrontReader {
   }
 
   /**
-    * This method creates a [[IndexMesh]] with
+    * This method creates a [[org.sorted.chaos.wavefront.mesh.IndexMesh]] with
     *  - vertices
     *  - textures (optional)
     *  - normals (optional)
@@ -32,7 +32,7 @@ object WavefrontReader {
     * from an .obj file. It can be used for OpenGL IndexDrawing.
     *
     * @param filename the .obj file (represents the input data)
-    * @return a [[IndexMesh]] with
+    * @return a [[org.sorted.chaos.wavefront.mesh.IndexMesh]] with
     *          - Array[Float] for vertices
     *          - Array[Float] for textures (is empty, if file does not contain this data type)
     *          - Array[Float] for normals (is empty, if file does not contain this data type)
@@ -44,13 +44,13 @@ object WavefrontReader {
   }
 
   /**
-    * This method creates a [[SimpleMesh]] with
+    * This method creates a [[org.sorted.chaos.wavefront.mesh.SimpleMesh]] with
     *  - vertices
     *  - color
     * from an .obj file.
     *
     * @param filename the .obj file (represents the input data)
-    * @return a [[SimpleMesh]] with
+    * @return a [[org.sorted.chaos.wavefront.mesh.SimpleMesh]] with
     *          - Array[Float] for vertices
     *          - Array[Float] for colors (of each vertex, will always be the same color)
     */
@@ -60,14 +60,14 @@ object WavefrontReader {
   }
 
   /**
-    * This method creates a [[SimpleIndexMesh]] with
+    * This method creates a [[org.sorted.chaos.wavefront.mesh.SimpleIndexMesh]] with
     *  - vertices
     *  - color
     *  - indexes
     * from an .obj file.  It can be used for OpenGL IndexDrawing.
     *
     * @param filename the .obj file (represents the input data)
-    * @return a [[SimpleIndexMesh]] with
+    * @return a [[org.sorted.chaos.wavefront.mesh.SimpleIndexMesh]] with
     *          - Array[Float] for vertices
     *          - Array[Float] for colors (of each vertex, will always be the same color)
     *          - Array[Int] the index list for IndexDrawing
@@ -78,10 +78,10 @@ object WavefrontReader {
   }
 
   /**
-   * TODO fill it!!!
-   * @param filename
-   * @return
-   */
+    * TODO fill it!!!
+    * @param filename
+    * @return
+    */
   def materialFrom(filename: String): WavefrontMaterial = {
     val lines = FileReader.read(filename)
     // perhaps I need another cae class (color as array
