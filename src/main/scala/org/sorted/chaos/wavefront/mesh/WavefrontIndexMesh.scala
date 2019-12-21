@@ -2,22 +2,9 @@ package org.sorted.chaos.wavefront.mesh
 
 import org.sorted.chaos.wavefront.reader.{ Indices, Point, UVCoordinate, Wavefront }
 
-/**
-  * This model class represents a Mesh with vertices, a texture and a index Array for indexed drawing
-  *
-  * @param vertices the array of vertices for the VertexBufferObject
-  * @param textures the array of UV coordinates for the VertexBufferObject
-  * @param normals the array of normals for the VertexBufferObject
-  * @param indexes the array of index for the IndexBufferObject
-  */
-final case class TexturedNormalIndexedMesh(
-    vertices: Array[Float],
-    textures: Array[Float],
-    normals: Array[Float],
-    indexes: Array[Int]
-)
+final case class WavefrontIndexMesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float], indexes: Array[Int])
 
-object TexturedNormalIndexedMesh {
+object WavefrontIndexMesh {
 
   private final case class Accumulator(
       currentIndex: Int,
@@ -38,7 +25,7 @@ object TexturedNormalIndexedMesh {
       Vector.empty[Int]
     )
 
-  def from(wavefront: Wavefront): TexturedNormalIndexedMesh = {
+  def from(wavefront: Wavefront): WavefrontIndexMesh = {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTextures  = wavefront.textures
     val wavefrontNormals   = wavefront.normals
@@ -55,8 +42,8 @@ object TexturedNormalIndexedMesh {
             currentIndex = accumulator.currentIndex + 1,
             lookUpTable  = accumulator.lookUpTable + (indices -> accumulator.currentIndex),
             vertices     = accumulator.vertices :+ wavefrontVertices(indices.vertexIndex - 1),
-            textures     = accumulator.textures :+ wavefrontTextures(indices.textureIndex.get - 1),
-            normals      = accumulator.normals :+ wavefrontNormals(indices.normalIndex.get - 1),
+            textures     = addTextures(indices, accumulator, wavefrontTextures),
+            normals      = addNormals(indices, accumulator, wavefrontNormals),
             indexes      = accumulator.indexes :+ accumulator.currentIndex
           )
         }
@@ -68,6 +55,18 @@ object TexturedNormalIndexedMesh {
     val normals  = result.normals.flatMap(_.toArray).toArray
     val indexes  = result.indexes.toArray
 
-    TexturedNormalIndexedMesh(vertices, textures, normals, indexes)
+    WavefrontIndexMesh(vertices, textures, normals, indexes)
   }
+
+  private def addTextures(indices: Indices, accumulator: Accumulator, wavefrontTextures: Vector[UVCoordinate]) =
+    indices.textureIndex match {
+      case None        => accumulator.textures
+      case Some(index) => accumulator.textures :+ wavefrontTextures(index - 1)
+    }
+
+  private def addNormals(indices: Indices, accumulator: Accumulator, wavefrontNormals: Vector[Point]) =
+    indices.normalIndex match {
+      case None        => accumulator.normals
+      case Some(index) => accumulator.normals :+ wavefrontNormals(index - 1)
+    }
 }
