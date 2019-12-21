@@ -4,6 +4,12 @@
 I refactored the whole result classes (the Meshes).
 Instead of having one class for each type now there is only one type.
 If the data unit in the .obj file is not present the array will be empty in the result data structure.
+I created `WavefrontReader` object as entry point for the framework user.
+It provides the following methods:
+* `from(filename: String): Mesh`
+* `withIndexFrom(filename: String): IndexMesh`
+* `simpleFrom(filename: String, color: Color): SimpleMesh`
+* `simpleWithIndexFrom(filename: String, color: Color): SimpleIndexMesh` 
 
 #### 2019-12-14
 I added the material file reader for .mtl files. 
