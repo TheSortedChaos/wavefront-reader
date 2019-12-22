@@ -3,8 +3,8 @@ package org.sorted.chaos.wavefront.mesh
 import org.scalatest.{Matchers, WordSpec}
 import org.sorted.chaos.wavefront.reader.{Color, Indices, Point, Triangle, UVCoordinate, Wavefront}
 
-class SimpleIndexedMeshTest extends WordSpec with Matchers {
-  "A SimpleIndexedMesh" should {
+class SimpleIndexMeshTest extends WordSpec with Matchers {
+  "A SimpleIndexMesh" should {
     "be created from a wavefront and a color definition" in {
       val vertices = Vector(
         Point(1.0f, 1.0f, 0.0f),
@@ -29,12 +29,11 @@ class SimpleIndexedMeshTest extends WordSpec with Matchers {
         vertices      = vertices,
         triangles     = triangles,
         normals       = Vector.empty[Point],
-        textures      = Vector.empty[UVCoordinate],
-        smoothShading = false
+        textures      = Vector.empty[UVCoordinate]
       )
       val color = Color(0.3f, 0.4f, 0.5f)
 
-      val actual = SimpleIndexedMesh.from(wavefront, color)
+      val actual = SimpleIndexMesh.from(wavefront, color)
       actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 2, 3)
       actual.color should contain theSameElementsInOrderAs Array(0.3f, 0.4f, 0.5f, 0.3f, 0.4f, 0.5f, 0.3f, 0.4f, 0.5f, 0.3f, 0.4f,
         0.5f)

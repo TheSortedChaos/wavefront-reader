@@ -3,34 +3,27 @@ package org.sorted.chaos.wavefront.reader
 import org.scalatest.{ Matchers, WordSpec }
 
 class UVCoordinateTest extends WordSpec with Matchers {
+  import UVCoordinate._
 
   "A UVCoordinate" should {
-
-    "be created from a valid .obj file line, like 'vt 1.0 1.0'" in {
-      val input  = "vt 1.0 1.0"
-      val actual = UVCoordinate.from(input)
-      actual shouldBe Right(
-        UVCoordinate(1.0f, 1.0f)
-      )
+    "be extracted from a valid String" in {
+      val input = "TOKEN 1.0 2.0"
+      input.getUVCoordinate shouldBe UVCoordinate(1.0f, 2.0f)
     }
 
-    "create an error message, if the line does not contain exactly 3 parts [token number number]" in {
-      val input  = "vt 1.0 1.0 1.0"
-      val actual = UVCoordinate.from(input)
-      actual shouldBe Left(
-        "  * There are 3 arguments [token number number] needed to parse a Texture coordinate, " +
-        "but 4 argument(s) was/were found (source was: 'vt 1.0 1.0 1.0')."
-      )
+    "NOT be extracted from an invalid String - (one number missing)" in {
+      val input = "TOKEN 1.0"
+      the[IllegalArgumentException] thrownBy input.getUVCoordinate should have message "requirement failed: Reading a 'Texture' needs 3 parts [token u v]. Found 2 part(s) in line 'TOKEN 1.0'."
     }
 
-    "create an error message, if the numbers could not parsed to Floats" in {
-      val input  = "vt 1.0 1.a"
-      val actual = UVCoordinate.from(input)
-      actual shouldBe Left(
-        "" +
-        "  * There are 2 numbers needed to parse a Texture coordinate, but something could not transformed " +
-        "to a Float (source was: 'vt 1.0 1.a)'."
-      )
+    "NOT be extracted from an invalid String - (one number too much)" in {
+      val input = "TOKEN 1.0 2.0 3.0"
+      the[IllegalArgumentException] thrownBy input.getUVCoordinate should have message "requirement failed: Reading a 'Texture' needs 3 parts [token u v]. Found 4 part(s) in line 'TOKEN 1.0 2.0 3.0'."
+    }
+
+    "NOT be extracted from an invalid String - (no Float number)" in {
+      val input = "TOKEN 1.0 ups"
+      the[IllegalArgumentException] thrownBy input.getUVCoordinate should have message "requirement failed: Reading a 'Texture' needs 2 Float numbers. Found 1 Float number(s) in line 'TOKEN 1.0 ups'."
     }
   }
 }

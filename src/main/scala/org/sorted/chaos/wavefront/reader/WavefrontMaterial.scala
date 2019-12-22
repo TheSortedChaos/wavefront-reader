@@ -9,7 +9,7 @@ package org.sorted.chaos.wavefront.reader
   * @param specularExponent the specular exponent (between 0 and 1000)
   * @param alphaChannel the alpha channel (between 0 and 1)
   */
-final case class Material(
+final case class WavefrontMaterial(
     ambientColor: Color,
     diffuseColor: Color,
     specularColor: Color,
@@ -17,7 +17,7 @@ final case class Material(
     alphaChannel: Float
 )
 
-object Material {
+object WavefrontMaterial {
   import Color._
   import ExtractSingleFloat._
 
@@ -27,7 +27,7 @@ object Material {
   private final val Exponent = "Ns"
   private final val Alpha    = "d"
 
-  def empty(): Material = Material(
+  def empty(): WavefrontMaterial = WavefrontMaterial(
     ambientColor     = Color(0.0f, 0.0f, 0.0f),
     diffuseColor     = Color(0.0f, 0.0f, 0.0f),
     specularColor    = Color(0.0f, 0.0f, 0.0f),
@@ -35,8 +35,8 @@ object Material {
     alphaChannel     = 1.0f
   )
 
-  def from(lines: Vector[String]): Material =
-    lines.foldLeft(Material.empty()) { (accumulator, line) =>
+  def from(lines: Vector[String]): WavefrontMaterial =
+    lines.foldLeft(WavefrontMaterial.empty()) { (accumulator, line) =>
       {
         val token = extractToken(line)
         processLine(accumulator, line, token)
@@ -46,7 +46,7 @@ object Material {
   private def extractToken(line: String): String =
     line.take(2).trim
 
-  private def processLine(accumulator: Material, line: String, token: String) =
+  private def processLine(accumulator: WavefrontMaterial, line: String, token: String) =
     token match {
       case Ambient  => accumulator.copy(ambientColor = line.getColor)
       case Diffuse  => accumulator.copy(diffuseColor = line.getColor)

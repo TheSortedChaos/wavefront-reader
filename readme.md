@@ -20,7 +20,9 @@ These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexB
 * SBT 1.3.3
 * Java JDK 1.8
 
-: TODO fill
+### TODOs
+- add log messages
+- update readme
 
 [blender]: https://www.blender.org/
 [lwjgl]: https://www.lwjgl.org/

@@ -1,11 +1,26 @@
 # History
 
+#### 2019-12-21
+I refactored the whole result classes (the Meshes).
+Instead of having one class for each type now there is only one type.
+If the data unit in the .obj file is not present the array will be empty in the result data structure.
+I created `WavefrontReader` object as entry point for the framework user.
+It provides the following methods:
+* `from(filename: String): Mesh`
+* `withIndexFrom(filename: String): IndexMesh`
+* `simpleFrom(filename: String, color: Color): SimpleMesh`
+* `simpleWithIndexFrom(filename: String, color: Color): SimpleIndexMesh` 
+
 #### 2019-12-14
 I added the material file reader for .mtl files. 
 Now it is possible to read a material file for light processing.
 At the moment it is only an internal model, because I am not sure how I will need the data for the shader in OpenGL.
 I also thought about the validation process of the wavefront file (.obj) and I am not happy with it anymore.
-I think I will refactor it later so that it will look like the material file (.mtl) validation.
+I refactored the validation process for reading the wavefront (.obj file).
+Now it looks like the material file (.mtl) validation.
+I decided to get rid of the different Mesh types.
+I want to use one type and only fill it with data, that is present.
+I build up a little prototype for it.
 
 #### 2019-12-12
 Added support for creating meshes from a wavefront with vertices, textures and normals, but without index (for OpenGl IndexDrawing).

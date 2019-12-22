@@ -1,52 +1,42 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Color, Point, Triangle, UVCoordinate }
+import org.sorted.chaos.wavefront.reader.Wavefront
 
-trait Mesh {
+/**
+  * This model class represents a [[Mesh]] with vertices, texture and normals, but without a index list
+  *
+  * @param vertices the array of vertices for the VertexBufferObject
+  * @param textures the array of UV coordinates for the VertexBufferObject, will be empty, if no data for this type was found
+  * @param normals the array of normals for the VertexBufferObject, will be empty, if no data for this type was found
+  */
+final case class Mesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float])
 
-  def getTexturesOfTriangle(triangle: Triangle, textures: Vector[UVCoordinate]): Array[Float] = {
-    val indices = triangle.asVector
+object Mesh extends Geometry {
 
-    // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
-    val texture1 = textures(indices(0).textureIndex.get - 1)
-    val texture2 = textures(indices(1).textureIndex.get - 1)
-    val texture3 = textures(indices(2).textureIndex.get - 1)
+  private def empty = Mesh(
+    vertices = Array.emptyFloatArray,
+    textures = Array.emptyFloatArray,
+    normals  = Array.emptyFloatArray
+  )
 
-    texture1.toArray ++ texture2.toArray ++ texture3.toArray
+  def from(wavefront: Wavefront): Mesh = {
+    val wavefrontVertices  = wavefront.vertices
+    val wavefrontTextures  = wavefront.textures
+    val wavefrontNormals   = wavefront.normals
+    val wavefrontTriangles = wavefront.triangles
+
+    wavefrontTriangles.foldLeft(Mesh.empty) { (accumulator, triangle) =>
+      {
+        val vertices = getVerticesOfTriangle(triangle, wavefrontVertices)
+        val textures = getTexturesOfTriangle(triangle, wavefrontTextures)
+        val normals  = getNormalsOfTriangle(triangle, wavefrontNormals)
+
+        Mesh(
+          vertices = accumulator.vertices ++ vertices,
+          textures = accumulator.textures ++ textures,
+          normals  = accumulator.normals ++ normals
+        )
+      }
+    }
   }
-
-  def getVerticesOfTriangle(triangle: Triangle, vertices: Vector[Point]): Array[Float] = {
-    val indices = triangle.asVector
-
-    // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
-    val point1 = vertices(indices(0).vertexIndex - 1)
-    val point2 = vertices(indices(1).vertexIndex - 1)
-    val point3 = vertices(indices(2).vertexIndex - 1)
-
-    point1.toArray ++ point2.toArray ++ point3.toArray
-  }
-
-  def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Point]): Array[Float] = {
-    val indices = triangle.asVector
-
-    // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
-    val point1 = normals(indices(0).normalIndex.get - 1)
-    val point2 = normals(indices(1).normalIndex.get - 1)
-    val point3 = normals(indices(2).normalIndex.get - 1)
-
-    point1.toArray ++ point2.toArray ++ point3.toArray
-  }
-
-  def getColorOfTriangle(color: Color): Array[Float] =
-    Array(
-      color.red,
-      color.green,
-      color.blue,
-      color.red,
-      color.green,
-      color.blue,
-      color.red,
-      color.green,
-      color.blue
-    )
 }

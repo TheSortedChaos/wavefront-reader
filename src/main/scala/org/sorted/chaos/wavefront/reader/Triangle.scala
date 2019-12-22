@@ -3,15 +3,6 @@ package org.sorted.chaos.wavefront.reader
 import org.sorted.chaos.wavefront.reader.Wavefront.Space
 
 /**
-  * This model class represents indices (vertex, texture, normal) for one point of a triangle.
-  *
-  * @param vertexIndex the index of the vertex
-  * @param textureIndex the index of the texture (optional)
-  * @param normalIndex the index of the normal (optional)
-  */
-final case class Indices(vertexIndex: Int, textureIndex: Option[Int], normalIndex: Option[Int])
-
-/**
   *  This model class represents the Triangle definition of the .obj file, starting with `f ...`.
   *  There are several abilities.
   *  Examples:
@@ -26,83 +17,34 @@ final case class Indices(vertexIndex: Int, textureIndex: Option[Int], normalInde
   */
 final case class Triangle(point1: Indices, point2: Indices, point3: Indices) {
 
-  def asVector: Vector[Indices] = Vector(point1, point2, point3)
+  def indices: Vector[Indices] = Vector(point1, point2, point3)
 }
 
 object Triangle {
-  private final val VertexTextureNormalPattern = """(\d+)/(\d+)/(\d+)""".r
-  private final val VertexTexturePattern       = """(\d+)/(\d+)""".r
-  private final val VertexNormalPattern        = """(\d+)//(\d+)""".r
-  private final val VertexPattern              = """(\d+)""".r
+  import Indices._
 
-  def from(line: String): Either[String, Triangle] = {
-    val lineParts = line.split(Space)
-    val trianglePoints = lineParts.tail.map {
-      case VertexTextureNormalPattern(vertex, texture, normal) =>
-        createIndicesFromVertexTextureNormalPattern(vertex, texture, normal)
-      case VertexTexturePattern(vertex, texture) =>
-        createIndicesFromVertexTexturePattern(vertex, texture)
-      case VertexNormalPattern(vertex, normal) =>
-        createIndicesFromVertexNormalPattern(vertex, normal)
-      case VertexPattern(vertex) =>
-        createIndicesFromVertexPattern(vertex)
-      case _ => Left(s"  * ParseError for Triangle definition - no pattern found for '$line'")
+  implicit class ExtractTriangleFrom(val line: String) {
+    def getTriangle: Triangle = {
+      val lineParts = line.split(Space)
+      val indices   = lineParts.tail.flatMap(part => part.getIndices)
+      validateInput(line, lineParts, indices)
+
+      Triangle(
+        indices(0),
+        indices(1),
+        indices(2)
+      )
     }
 
-    if (lineParts.length != 4) {
-      Left(
-        "  * ParseError for Triangle definition - pattern consists of 4 arguments [token indices indices indices], but " +
-        s"${lineParts.length} argument(s) was/were found (source was: '$line')."
+    private def validateInput(line: String, lineParts: Array[String], indices: Array[Indices]): Unit = {
+      require(
+        lineParts.length == 4,
+        s"Reading a 'Triangle' needs 4 parts [token indices indices indices]. Found ${lineParts.length} part(s) in line '$line'."
       )
-    } else if (trianglePoints(0).isLeft || trianglePoints(1).isLeft || trianglePoints(2).isLeft) {
-      val lefts        = trianglePoints.filter(item => item.isLeft)
-      val errorMessage = lefts.flatMap(item         => item.swap.toSeq)
-      Left(errorMessage.mkString("\n"))
-    } else {
-      val index = trianglePoints.flatMap(item => item.toSeq)
-      Right(
-        Triangle(
-          index(0),
-          index(1),
-          index(2)
-        )
+      require(
+        indices.length == 3,
+        s"Creating a 'Triangle' needs 3 Indices. Found ${indices.length} indices in line '$line'."
       )
     }
   }
-
-  private def createIndicesFromVertexTextureNormalPattern(vertex: String, texture: String, normal: String) =
-    Right(
-      Indices(
-        vertexIndex  = vertex.toInt,
-        textureIndex = Some(texture.toInt),
-        normalIndex  = Some(normal.toInt)
-      )
-    )
-
-  private def createIndicesFromVertexTexturePattern(vertex: String, texture: String) =
-    Right(
-      Indices(
-        vertexIndex  = vertex.toInt,
-        textureIndex = Some(texture.toInt),
-        normalIndex  = None
-      )
-    )
-
-  private def createIndicesFromVertexNormalPattern(vertex: String, normal: String) =
-    Right(
-      Indices(
-        vertexIndex  = vertex.toInt,
-        textureIndex = None,
-        normalIndex  = Some(normal.toInt)
-      )
-    )
-
-  private def createIndicesFromVertexPattern(vertex: String) =
-    Right(
-      Indices(
-        vertexIndex  = vertex.toInt,
-        textureIndex = None,
-        normalIndex  = None
-      )
-    )
 }

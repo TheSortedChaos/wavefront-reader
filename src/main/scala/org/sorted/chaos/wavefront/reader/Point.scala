@@ -1,7 +1,5 @@
 package org.sorted.chaos.wavefront.reader
 
-import org.sorted.chaos.wavefront.reader.Wavefront.Space
-
 /**
   * This model class represents the Vertex/Normal definition of the .obj file, starting with `v ...` or `vn ...`
   * Example
@@ -17,23 +15,28 @@ final case class Point(x: Float, y: Float, z: Float) {
   def toArray: Array[Float] = Array(x, y, z)
 }
 
-object Point {
-  def from(line: String): Either[String, Point] = {
-    val lineParts = line.split(Space)
-    val numbers   = lineParts.tail.flatMap(_.toFloatOption)
+object Point extends FloatExtractor {
+  implicit class ExtractPointFrom(val line: String) {
+    def getPoint: Point = {
+      val tuple = extract(line)
+      validateInput(line, tuple.lineParts, tuple.numbers)
 
-    if (lineParts.length != 4) {
-      Left(
-        "  * There are 4 arguments [token number number number] needed to parse a Vertex/Normal coordinate, " +
-        s"but ${lineParts.length} argument(s) was/were found (source was: '$line')."
+      Point(
+        x = tuple.numbers(0),
+        y = tuple.numbers(1),
+        z = tuple.numbers(2)
       )
-    } else if (numbers.length != 3) {
-      Left(
-        "  * There are 3 numbers needed to parse a Vertex/Normal coordinate, but something could not transformed " +
-        s"to a Float (source was: '$line')."
+    }
+
+    private def validateInput(line: String, lineParts: Array[String], numbers: Array[Float]): Unit = {
+      require(
+        lineParts.length == 4,
+        s"Reading a 'Vertex' or 'Normal' needs 4 parts [token x y z]. Found ${lineParts.length} part(s) in line '$line'."
       )
-    } else {
-      Right(Point(numbers(0), numbers(1), numbers(2)))
+      require(
+        numbers.length == 3,
+        s"Reading a 'Vertex' or 'Normal' needs 3 Float numbers. Found ${numbers.length} Float number(s) in line '$line'."
+      )
     }
   }
 }
