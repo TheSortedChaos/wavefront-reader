@@ -10,14 +10,14 @@ import org.joml.Vector3f
   * @param specularColor the specular color (rgb)
   * @param specularExponent the specular exponent (between 0 and 1000)
   */
-final case class WavefrontMaterial(
+final case class Material(
     ambientColor: Vector3f,
     diffuseColor: Vector3f,
     specularColor: Vector3f,
     specularExponent: Float
 )
 
-object WavefrontMaterial {
+object Material {
   import Color._
   import ExtractSingleFloat._
 
@@ -26,15 +26,15 @@ object WavefrontMaterial {
   private final val Specular = "Ks"
   private final val Exponent = "Ns"
 
-  def empty(): WavefrontMaterial = WavefrontMaterial(
+  def empty(): Material = Material(
     ambientColor     = new Vector3f(0.0f, 0.0f, 0.0f),
     diffuseColor     = new Vector3f(0.0f, 0.0f, 0.0f),
     specularColor    = new Vector3f(0.0f, 0.0f, 0.0f),
     specularExponent = 0.0f
   )
 
-  def from(lines: Vector[String]): WavefrontMaterial =
-    lines.foldLeft(WavefrontMaterial.empty()) { (accumulator, line) =>
+  def from(lines: Vector[String]): Material =
+    lines.foldLeft(Material.empty()) { (accumulator, line) =>
       {
         val token = extractToken(line)
         processLine(accumulator, line, token)
@@ -44,7 +44,7 @@ object WavefrontMaterial {
   private def extractToken(line: String): String =
     line.take(2).trim
 
-  private def processLine(accumulator: WavefrontMaterial, line: String, token: String) =
+  private def processLine(accumulator: Material, line: String, token: String) =
     token match {
       case Ambient  => accumulator.copy(ambientColor = line.getColor)
       case Diffuse  => accumulator.copy(diffuseColor = line.getColor)

@@ -26,6 +26,8 @@ These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexB
 - FileReader should take files(because otherwise it has to be in resources)
   - fromResource
   - fromFile
+- check the documentation (comments in code)
+- create documentation plantUml?
   
   
 [blender]: https://www.blender.org/

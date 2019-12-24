@@ -3,9 +3,9 @@ package org.sorted.chaos.wavefront.reader
 import org.joml.Vector3f
 import org.scalatest.{Matchers, WordSpec}
 
-class WavefrontMaterialTest extends WordSpec with Matchers {
+class MaterialTest extends WordSpec with Matchers {
 
-  "A WavefrontMaterial" should {
+  "A Material" should {
     "be created from valid String lines" in {
       val input = Vector(
         "# here is a comment",
@@ -15,9 +15,9 @@ class WavefrontMaterialTest extends WordSpec with Matchers {
         "Ns 10.5",
         "d 0.75"
       )
-      val actual = WavefrontMaterial.from(input)
+      val actual = Material.from(input)
 
-      actual shouldBe WavefrontMaterial(
+      actual shouldBe Material(
         ambientColor     = new Vector3f(0.1f, 0.2f, 0.3f),
         diffuseColor     = new Vector3f(0.4f, 0.5f, 0.6f),
         specularColor    = new Vector3f(0.7f, 0.8f, 0.9f),
@@ -33,7 +33,7 @@ class WavefrontMaterialTest extends WordSpec with Matchers {
         "Ns 10.5",
         "d 0.75"
       )
-      an[IllegalArgumentException] should be thrownBy WavefrontMaterial.from(input)
+      an[IllegalArgumentException] should be thrownBy Material.from(input)
     }
   }
 }

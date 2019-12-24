@@ -2,7 +2,7 @@ package org.sorted.chaos.wavefront
 
 import org.joml.Vector3f
 import org.sorted.chaos.wavefront.mesh.{ IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh }
-import org.sorted.chaos.wavefront.reader.{ Wavefront, WavefrontMaterial }
+import org.sorted.chaos.wavefront.reader.{ Material, Wavefront }
 import org.sorted.chaos.wavefront.utilities.FileReader
 
 object WavefrontReader {
@@ -65,7 +65,7 @@ object WavefrontReader {
     *  - vertices
     *  - color
     *  - indexes
-    * from an .obj file.  It can be used for OpenGL IndexDrawing.
+    * from an .obj file. It can be used for OpenGL IndexDrawing.
     *
     * @param filename the .obj file (represents the input data)
     * @return a [[org.sorted.chaos.wavefront.mesh.SimpleIndexMesh]] with
@@ -79,14 +79,22 @@ object WavefrontReader {
   }
 
   /**
-    * TODO fill it!!!
-    * @param filename
-    * @return
+    * This method creates a [[org.sorted.chaos.wavefront.reader.Material]] with
+    *   - ambient color
+    *   - diffuse color
+    *   - specular color
+    *   - specular exponent
+    *   from a .mtl file.
+    * @param filename the .mtl file (represents the input data)
+    * @return a [[org.sorted.chaos.wavefront.reader.Material]] with
+    *          - Vector3f for ambient color
+    *          - Vector3f for diffuse color
+    *          - Vector3f for specular color
+    *          - Float for specular exponent
     */
-  def materialFrom(filename: String): WavefrontMaterial = {
+  def materialFrom(filename: String): Material = {
     val lines = FileReader.read(filename)
-    // perhaps I need another cae class (color as array
-    WavefrontMaterial.from(lines)
+    Material.from(lines)
   }
 
   private def getWavefront(filename: String) = {
