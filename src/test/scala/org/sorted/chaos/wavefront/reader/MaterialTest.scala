@@ -35,5 +35,16 @@ class MaterialTest extends WordSpec with Matchers {
       )
       an[IllegalArgumentException] should be thrownBy Material.from(input)
     }
+
+    "ignore unknown tokens" in {
+      val input = Vector("X 0.1 0.2 0.3")
+      val actual = Material.from(input)
+      actual shouldBe Material(
+        ambientColor     = new Vector3f(0.0f, 0.0f, 0.0f),
+        diffuseColor     = new Vector3f(0.0f, 0.0f, 0.0f),
+        specularColor    = new Vector3f(0.0f, 0.0f, 0.0f),
+        specularExponent = 0.0f
+      )
+    }
   }
 }
