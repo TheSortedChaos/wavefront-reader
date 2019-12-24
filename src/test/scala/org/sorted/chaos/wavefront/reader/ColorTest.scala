@@ -1,6 +1,7 @@
 package org.sorted.chaos.wavefront.reader
 
-import org.scalatest.{ Matchers, WordSpec }
+import org.joml.Vector3f
+import org.scalatest.{Matchers, WordSpec}
 
 class ColorTest extends WordSpec with Matchers {
   import Color._
@@ -8,7 +9,7 @@ class ColorTest extends WordSpec with Matchers {
   "A Color" should {
     "be extracted from a valid String" in {
       val input = "TOKEN 0.2 0.3 0.4"
-      input.getColor shouldBe Color(0.2f, 0.3f, 0.4f)
+      input.getColor shouldBe new Vector3f(0.2f, 0.3f, 0.4f)
     }
 
     "NOT be extracted from an invalid String - (one number missing)" in {

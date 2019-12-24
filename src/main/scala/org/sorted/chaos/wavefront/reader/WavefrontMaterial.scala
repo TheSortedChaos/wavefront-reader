@@ -1,5 +1,7 @@
 package org.sorted.chaos.wavefront.reader
 
+import org.joml.Vector3f
+
 /**
   * This model class represents the .mtl file, containing all relevant data
   *
@@ -7,14 +9,12 @@ package org.sorted.chaos.wavefront.reader
   * @param diffuseColor The diffuse color (rgb)
   * @param specularColor the specular color (rgb)
   * @param specularExponent the specular exponent (between 0 and 1000)
-  * @param alphaChannel the alpha channel (between 0 and 1)
   */
 final case class WavefrontMaterial(
-    ambientColor: Color,
-    diffuseColor: Color,
-    specularColor: Color,
-    specularExponent: Float,
-    alphaChannel: Float
+    ambientColor: Vector3f,
+    diffuseColor: Vector3f,
+    specularColor: Vector3f,
+    specularExponent: Float
 )
 
 object WavefrontMaterial {
@@ -25,14 +25,12 @@ object WavefrontMaterial {
   private final val Diffuse  = "Kd"
   private final val Specular = "Ks"
   private final val Exponent = "Ns"
-  private final val Alpha    = "d"
 
   def empty(): WavefrontMaterial = WavefrontMaterial(
-    ambientColor     = Color(0.0f, 0.0f, 0.0f),
-    diffuseColor     = Color(0.0f, 0.0f, 0.0f),
-    specularColor    = Color(0.0f, 0.0f, 0.0f),
-    specularExponent = 0.0f,
-    alphaChannel     = 1.0f
+    ambientColor     = new Vector3f(0.0f, 0.0f, 0.0f),
+    diffuseColor     = new Vector3f(0.0f, 0.0f, 0.0f),
+    specularColor    = new Vector3f(0.0f, 0.0f, 0.0f),
+    specularExponent = 0.0f
   )
 
   def from(lines: Vector[String]): WavefrontMaterial =
@@ -52,7 +50,6 @@ object WavefrontMaterial {
       case Diffuse  => accumulator.copy(diffuseColor = line.getColor)
       case Specular => accumulator.copy(specularColor = line.getColor)
       case Exponent => accumulator.copy(specularExponent = line.getSpecularExponent)
-      case Alpha    => accumulator.copy(alphaChannel = line.getAlphaChannel)
       case _        => accumulator
     }
 }

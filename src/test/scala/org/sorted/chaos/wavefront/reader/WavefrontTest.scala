@@ -1,5 +1,6 @@
 package org.sorted.chaos.wavefront.reader
 
+import org.joml.{ Vector2f, Vector3f }
 import org.scalatest.{ Matchers, WordSpec }
 
 class WavefrontTest extends WordSpec with Matchers {
@@ -31,10 +32,10 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
@@ -48,8 +49,8 @@ class WavefrontTest extends WordSpec with Matchers {
             Indices(4, None, None)
           )
         ),
-        normals  = Vector.empty[Point],
-        textures = Vector.empty[UVCoordinate]
+        normals  = Vector.empty[Vector3f],
+        textures = Vector.empty[Vector2f]
       )
     }
 
@@ -71,10 +72,10 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
@@ -88,12 +89,12 @@ class WavefrontTest extends WordSpec with Matchers {
             Indices(4, Some(4), None)
           )
         ),
-        normals = Vector.empty[Point],
+        normals = Vector.empty[Vector3f],
         textures = Vector(
-          UVCoordinate(0.0f, 0.0f),
-          UVCoordinate(1.0f, 0.0f),
-          UVCoordinate(1.0f, 1.0f),
-          UVCoordinate(0.0f, 1.0f)
+          new Vector2f(0.0f, 0.0f),
+          new Vector2f(1.0f, 0.0f),
+          new Vector2f(1.0f, 1.0f),
+          new Vector2f(0.0f, 1.0f)
         )
       )
     }
@@ -113,10 +114,10 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
@@ -131,9 +132,9 @@ class WavefrontTest extends WordSpec with Matchers {
           )
         ),
         normals = Vector(
-          Point(0.0f, 0.0f, 1.0f)
+          new Vector3f(0.0f, 0.0f, 1.0f)
         ),
-        textures = Vector.empty[UVCoordinate]
+        textures = Vector.empty[Vector2f]
       )
     }
 
@@ -156,10 +157,10 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
@@ -174,13 +175,13 @@ class WavefrontTest extends WordSpec with Matchers {
           )
         ),
         normals = Vector(
-          Point(0.0f, 0.0f, 1.0f)
+          new Vector3f(0.0f, 0.0f, 1.0f)
         ),
         textures = Vector(
-          UVCoordinate(0.0f, 0.0f),
-          UVCoordinate(1.0f, 0.0f),
-          UVCoordinate(1.0f, 1.0f),
-          UVCoordinate(0.0f, 1.0f)
+          new Vector2f(0.0f, 0.0f),
+          new Vector2f(1.0f, 0.0f),
+          new Vector2f(1.0f, 1.0f),
+          new Vector2f(0.0f, 1.0f)
         )
       )
     }

@@ -1,6 +1,7 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Indices, Point, UVCoordinate, Wavefront }
+import org.joml.{ Vector2f, Vector3f }
+import org.sorted.chaos.wavefront.reader.{ Indices, Wavefront }
 
 /**
   * This model class represents a [[IndexMesh]] with vertices, texture, normals, and an index list
@@ -13,13 +14,14 @@ import org.sorted.chaos.wavefront.reader.{ Indices, Point, UVCoordinate, Wavefro
 final case class IndexMesh(vertices: Array[Float], textures: Array[Float], normals: Array[Float], indexes: Array[Int])
 
 object IndexMesh {
+  import org.sorted.chaos.wavefront.reader.JomlExtension.{ Vector2fExtension, Vector3fExtension }
 
   private final case class Accumulator(
       currentIndex: Int,
       lookUpTable: Map[Indices, Int],
-      vertices: Vector[Point],
-      textures: Vector[UVCoordinate],
-      normals: Vector[Point],
+      vertices: Vector[Vector3f],
+      textures: Vector[Vector2f],
+      normals: Vector[Vector3f],
       indexes: Vector[Int]
   )
 
@@ -27,9 +29,9 @@ object IndexMesh {
     Accumulator(
       0,
       Map.empty[Indices, Int],
-      Vector.empty[Point],
-      Vector.empty[UVCoordinate],
-      Vector.empty[Point],
+      Vector.empty[Vector3f],
+      Vector.empty[Vector2f],
+      Vector.empty[Vector3f],
       Vector.empty[Int]
     )
 
@@ -66,13 +68,13 @@ object IndexMesh {
     IndexMesh(vertices, textures, normals, indexes)
   }
 
-  private def addTextures(indices: Indices, accumulator: Accumulator, wavefrontTextures: Vector[UVCoordinate]) =
+  private def addTextures(indices: Indices, accumulator: Accumulator, wavefrontTextures: Vector[Vector2f]) =
     indices.textureIndex match {
       case None        => accumulator.textures
       case Some(index) => accumulator.textures :+ wavefrontTextures(index - 1)
     }
 
-  private def addNormals(indices: Indices, accumulator: Accumulator, wavefrontNormals: Vector[Point]) =
+  private def addNormals(indices: Indices, accumulator: Accumulator, wavefrontNormals: Vector[Vector3f]) =
     indices.normalIndex match {
       case None        => accumulator.normals
       case Some(index) => accumulator.normals :+ wavefrontNormals(index - 1)

@@ -1,6 +1,7 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Color, Wavefront }
+import org.joml.Vector3f
+import org.sorted.chaos.wavefront.reader.Wavefront
 
 /**
   * This model class represents a [[SimpleIndexMesh]] with vertices, a color and an index list
@@ -12,7 +13,9 @@ import org.sorted.chaos.wavefront.reader.{ Color, Wavefront }
 final case class SimpleIndexMesh(vertices: Array[Float], color: Array[Float], indexes: Array[Int])
 
 object SimpleIndexMesh {
-  def from(wavefront: Wavefront, color: Color): SimpleIndexMesh = {
+  import org.sorted.chaos.wavefront.reader.JomlExtension.Vector3fExtension
+
+  def from(wavefront: Wavefront, color: Vector3f): SimpleIndexMesh = {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTriangles = wavefront.triangles
 

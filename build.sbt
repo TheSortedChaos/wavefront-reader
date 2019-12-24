@@ -9,6 +9,8 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
+  // Mathematics
+  "org.joml" % "joml" % "1.9.19",
   //Logging
   "ch.qos.logback"       % "logback-classic" % "1.3.0-alpha5",
   "ch.qos.logback"       % "logback-core"    % "1.3.0-alpha5",

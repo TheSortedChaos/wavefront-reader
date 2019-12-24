@@ -1,26 +1,17 @@
 package org.sorted.chaos.wavefront.reader
 
-/**
-  * This model class represents the color of the Mesh (when not having a texture)
-  *
-  * @param red the amount of red a value between 0 and 1
-  * @param green the amount of green a value between 0 and 1
-  * @param blue the amount of blue a value between 0 and 1
-  */
-final case class Color(red: Float, green: Float, blue: Float) {
-  def toArray: Array[Float] = Array(red, green, blue)
-}
+import org.joml.Vector3f
 
 object Color extends FloatExtractor {
   implicit class ExtractColorFrom(val line: String) {
-    def getColor: Color = {
+    def getColor: Vector3f = {
       val tuple = extract(line)
       validateInput(line, tuple.lineParts, tuple.numbers)
 
-      Color(
-        red   = tuple.numbers(0),
-        green = tuple.numbers(1),
-        blue  = tuple.numbers(2)
+      new Vector3f(
+        tuple.numbers(0),
+        tuple.numbers(1),
+        tuple.numbers(2)
       )
     }
 

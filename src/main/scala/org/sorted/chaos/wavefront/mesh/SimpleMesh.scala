@@ -1,6 +1,7 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Color, Wavefront }
+import org.joml.Vector3f
+import org.sorted.chaos.wavefront.reader.Wavefront
 
 /**
   * This model class represents a [[SimpleMesh]] with vertices and a color, but without a index list
@@ -14,7 +15,7 @@ object SimpleMesh extends Geometry {
 
   private def empty = SimpleMesh(Array.emptyFloatArray, Array.emptyFloatArray)
 
-  def from(wavefront: Wavefront, color: Color): SimpleMesh = {
+  def from(wavefront: Wavefront, color: Vector3f): SimpleMesh = {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTriangles = wavefront.triangles
 

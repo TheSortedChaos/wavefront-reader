@@ -1,6 +1,7 @@
 package org.sorted.chaos.wavefront.reader
 
-import org.scalatest.{ Matchers, WordSpec }
+import org.joml.Vector3f
+import org.scalatest.{Matchers, WordSpec}
 
 class WavefrontMaterialTest extends WordSpec with Matchers {
 
@@ -17,11 +18,10 @@ class WavefrontMaterialTest extends WordSpec with Matchers {
       val actual = WavefrontMaterial.from(input)
 
       actual shouldBe WavefrontMaterial(
-        ambientColor     = Color(0.1f, 0.2f, 0.3f),
-        diffuseColor     = Color(0.4f, 0.5f, 0.6f),
-        specularColor    = Color(0.7f, 0.8f, 0.9f),
-        specularExponent = 10.5f,
-        alphaChannel     = 0.75f
+        ambientColor     = new Vector3f(0.1f, 0.2f, 0.3f),
+        diffuseColor     = new Vector3f(0.4f, 0.5f, 0.6f),
+        specularColor    = new Vector3f(0.7f, 0.8f, 0.9f),
+        specularExponent = 10.5f
       )
     }
 

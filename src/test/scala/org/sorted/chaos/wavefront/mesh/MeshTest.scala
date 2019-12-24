@@ -1,29 +1,30 @@
 package org.sorted.chaos.wavefront.mesh
 
+import org.joml.{ Vector2f, Vector3f }
 import org.scalatest.{ Matchers, WordSpec }
-import org.sorted.chaos.wavefront.reader.{ Indices, Point, Triangle, UVCoordinate, Wavefront }
+import org.sorted.chaos.wavefront.reader.{ Indices, Triangle, Wavefront }
 
 class MeshTest extends WordSpec with Matchers {
 
   "A Mesh" should {
     "be created from a wavefront (with vertices, texture and normals definition)" in {
       val vertices = Vector(
-        Point(1.0f, 1.0f, 0.0f),
-        Point(4.0f, 1.0f, 0.0f),
-        Point(4.0f, 4.0f, 0.0f),
-        Point(1.0f, 4.0f, 0.0f)
+        new Vector3f(1.0f, 1.0f, 0.0f),
+        new Vector3f(4.0f, 1.0f, 0.0f),
+        new Vector3f(4.0f, 4.0f, 0.0f),
+        new Vector3f(1.0f, 4.0f, 0.0f)
       )
       val textures = Vector(
-        UVCoordinate(0.0f, 0.0f),
-        UVCoordinate(1.0f, 0.0f),
-        UVCoordinate(1.0f, 1.0f),
-        UVCoordinate(0.0f, 1.0f)
+        new Vector2f(0.0f, 0.0f),
+        new Vector2f(1.0f, 0.0f),
+        new Vector2f(1.0f, 1.0f),
+        new Vector2f(0.0f, 1.0f)
       )
       val normals = Vector(
-        Point(0.1f, 0.1f, 0.0f),
-        Point(0.4f, 0.1f, 0.0f),
-        Point(0.4f, 0.4f, 0.0f),
-        Point(0.1f, 0.4f, 0.0f)
+        new Vector3f(0.1f, 0.1f, 0.0f),
+        new Vector3f(0.4f, 0.1f, 0.0f),
+        new Vector3f(0.4f, 0.4f, 0.0f),
+        new Vector3f(0.1f, 0.4f, 0.0f)
       )
       val triangles = Vector(
         Triangle(
@@ -56,16 +57,16 @@ class MeshTest extends WordSpec with Matchers {
 
     "be created from a wavefront (with vertices and texture)" in {
       val vertices = Vector(
-        Point(1.0f, 1.0f, 0.0f),
-        Point(4.0f, 1.0f, 0.0f),
-        Point(4.0f, 4.0f, 0.0f),
-        Point(1.0f, 4.0f, 0.0f)
+        new Vector3f(1.0f, 1.0f, 0.0f),
+        new Vector3f(4.0f, 1.0f, 0.0f),
+        new Vector3f(4.0f, 4.0f, 0.0f),
+        new Vector3f(1.0f, 4.0f, 0.0f)
       )
       val textures = Vector(
-        UVCoordinate(0.0f, 0.0f),
-        UVCoordinate(1.0f, 0.0f),
-        UVCoordinate(1.0f, 1.0f),
-        UVCoordinate(0.0f, 1.0f)
+        new Vector2f(0.0f, 0.0f),
+        new Vector2f(1.0f, 0.0f),
+        new Vector2f(1.0f, 1.0f),
+        new Vector2f(0.0f, 1.0f)
       )
       val triangles = Vector(
         Triangle(
@@ -83,7 +84,7 @@ class MeshTest extends WordSpec with Matchers {
       val input = Wavefront(
         vertices  = vertices,
         triangles = triangles,
-        normals   = Vector.empty[Point],
+        normals   = Vector.empty[Vector3f],
         textures  = textures
       )
 

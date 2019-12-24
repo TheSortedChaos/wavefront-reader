@@ -1,7 +1,8 @@
 package org.sorted.chaos.wavefront
 
+import org.joml.Vector3f
 import org.sorted.chaos.wavefront.mesh.{ IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh }
-import org.sorted.chaos.wavefront.reader.{ Color, Wavefront, WavefrontMaterial }
+import org.sorted.chaos.wavefront.reader.{ Wavefront, WavefrontMaterial }
 import org.sorted.chaos.wavefront.utilities.FileReader
 
 object WavefrontReader {
@@ -54,7 +55,7 @@ object WavefrontReader {
     *          - Array[Float] for vertices
     *          - Array[Float] for colors (of each vertex, will always be the same color)
     */
-  def simpleFrom(filename: String, color: Color): SimpleMesh = {
+  def simpleFrom(filename: String, color: Vector3f): SimpleMesh = {
     val wavefront = getWavefront(filename)
     SimpleMesh.from(wavefront, color)
   }
@@ -72,7 +73,7 @@ object WavefrontReader {
     *          - Array[Float] for colors (of each vertex, will always be the same color)
     *          - Array[Int] the index list for IndexDrawing
     */
-  def simpleWithIndexFrom(filename: String, color: Color): SimpleIndexMesh = {
+  def simpleWithIndexFrom(filename: String, color: Vector3f): SimpleIndexMesh = {
     val wavefront = getWavefront(filename)
     SimpleIndexMesh.from(wavefront, color)
   }

@@ -1,10 +1,12 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.sorted.chaos.wavefront.reader.{ Color, Point, Triangle, UVCoordinate }
+import org.joml.{ Vector2f, Vector3f }
+import org.sorted.chaos.wavefront.reader.{ Color, Triangle }
 
 trait Geometry {
+  import org.sorted.chaos.wavefront.reader.JomlExtension.{ Vector2fExtension, Vector3fExtension }
 
-  protected def getTexturesOfTriangle(triangle: Triangle, textures: Vector[UVCoordinate]): Array[Float] = {
+  protected def getTexturesOfTriangle(triangle: Triangle, textures: Vector[Vector2f]): Array[Float] = {
     val indices = triangle.indices
 
     (indices(0).textureIndex, indices(1).textureIndex, indices(2).textureIndex) match {
@@ -18,7 +20,7 @@ trait Geometry {
     }
   }
 
-  protected def getVerticesOfTriangle(triangle: Triangle, vertices: Vector[Point]): Array[Float] = {
+  protected def getVerticesOfTriangle(triangle: Triangle, vertices: Vector[Vector3f]): Array[Float] = {
     val indices = triangle.indices
 
     // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
@@ -29,7 +31,7 @@ trait Geometry {
     point1.toArray ++ point2.toArray ++ point3.toArray
   }
 
-  protected def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Point]): Array[Float] = {
+  protected def getNormalsOfTriangle(triangle: Triangle, normals: Vector[Vector3f]): Array[Float] = {
     val indices = triangle.indices
 
     (indices(0).normalIndex, indices(1).normalIndex, indices(2).normalIndex) match {
@@ -43,16 +45,16 @@ trait Geometry {
     }
   }
 
-  protected def getColorOfTriangle(color: Color): Array[Float] =
+  protected def getColorOfTriangle(color: Vector3f): Array[Float] =
     Array(
-      color.red,
-      color.green,
-      color.blue,
-      color.red,
-      color.green,
-      color.blue,
-      color.red,
-      color.green,
-      color.blue
+      color.x,
+      color.y,
+      color.z,
+      color.x,
+      color.y,
+      color.z,
+      color.x,
+      color.y,
+      color.z
     )
 }
