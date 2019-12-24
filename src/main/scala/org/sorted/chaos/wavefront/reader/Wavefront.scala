@@ -24,10 +24,10 @@ object Wavefront {
 
   private[reader] final val Space = " "
 
-  private final val Vertex  = "v"
-  private final val Face    = "f"
-  private final val Texture = "vt"
-  private final val Normal  = "vn"
+  private val Vertex  = "v"
+  private val Face    = "f"
+  private val Texture = "vt"
+  private val Normal  = "vn"
 
   private def empty =
     Wavefront(

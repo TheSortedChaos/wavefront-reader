@@ -21,10 +21,10 @@ object Material {
   import Color._
   import ExtractSingleFloat._
 
-  private final val Ambient  = "Ka"
-  private final val Diffuse  = "Kd"
-  private final val Specular = "Ks"
-  private final val Exponent = "Ns"
+  private val Ambient  = "Ka"
+  private val Diffuse  = "Kd"
+  private val Specular = "Ks"
+  private val Exponent = "Ns"
 
   def empty(): Material = Material(
     ambientColor     = new Vector3f(0.0f, 0.0f, 0.0f),
