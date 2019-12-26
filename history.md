@@ -1,5 +1,14 @@
 # History
 
+#### 2019-12-16
+Houston we got a problem during reading a 3 MB file:
+```
+Read the file took 167 ms (= 0 s)
+Create a Wavefront took 737 ms (= 0 s)
+Create the mesh from the wavefront took 9004 ms (= 9 s)
+Create Normal Mapping took 24860 ms (= 24 s)
+```
+
 #### 2019-12-21
 I refactored the whole result classes (the Meshes).
 Instead of having one class for each type now there is only one type.

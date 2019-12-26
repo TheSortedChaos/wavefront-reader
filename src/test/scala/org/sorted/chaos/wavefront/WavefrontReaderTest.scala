@@ -1,12 +1,18 @@
 package org.sorted.chaos.wavefront
 
 import org.joml.Vector3f
-import org.scalatest.{ Matchers, WordSpec }
+import org.scalatest.{Matchers, WordSpec}
+import org.sorted.chaos.wavefront.mesh.Mesh
 import org.sorted.chaos.wavefront.reader.Material
 
 class WavefrontReaderTest extends WordSpec with Matchers {
 
   "The WavefrontReader" should {
+    "bigFile" in {
+      val actual = WavefrontReader.from("/bs_smile.obj")
+      val normal = Mesh.normalMapping(actual)
+    }
+
     "read an .obj file with vertices" in {
       val actual = WavefrontReader.from("/plane-with-vertices.obj")
       actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
@@ -30,6 +36,9 @@ class WavefrontReaderTest extends WordSpec with Matchers {
         0.0f, 1.0f)
       actual.normals should contain theSameElementsInOrderAs Array(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)
+
+      val normalMapping = Mesh.normalMapping(actual)
+      println("aaaahhh")
     }
     "read an .obj file with vertices (create index list for index drawing)" in {
       val actual = WavefrontReader.withIndexFrom("/plane-with-vertices.obj")

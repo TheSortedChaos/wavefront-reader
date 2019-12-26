@@ -1,9 +1,9 @@
 package org.sorted.chaos.wavefront
 
 import org.joml.Vector3f
-import org.sorted.chaos.wavefront.mesh.{ IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh }
-import org.sorted.chaos.wavefront.reader.{ Material, Wavefront }
-import org.sorted.chaos.wavefront.utilities.FileReader
+import org.sorted.chaos.wavefront.mesh.{IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh}
+import org.sorted.chaos.wavefront.reader.{Material, Wavefront}
+import org.sorted.chaos.wavefront.utilities.{FileReader, Timer}
 
 object WavefrontReader {
 
@@ -21,7 +21,10 @@ object WavefrontReader {
     */
   def from(filename: String): Mesh = {
     val wavefront = getWavefront(filename)
-    Mesh.from(wavefront)
+    val t1 = Timer.start
+    val result = Mesh.from(wavefront)
+    Timer.end(t1, "Create the mesh from the wavefront")
+    result
   }
 
   /**
@@ -98,7 +101,12 @@ object WavefrontReader {
   }
 
   private def getWavefront(filename: String) = {
+    val t1 = Timer.start
     val lines = FileReader.read(filename)
-    Wavefront.from(lines)
+    Timer.end(t1, "Read the file")
+    val t2 = Timer.start
+    val result = Wavefront.from(lines)
+    Timer.end(t2, "Create a Wavefront")
+    result
   }
 }

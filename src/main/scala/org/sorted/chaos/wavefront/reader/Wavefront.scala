@@ -22,7 +22,7 @@ object Wavefront {
   import Triangle._
   import UVCoordinate._
 
-  private[reader] final val Space = " "
+  private[reader] val Space = " "
 
   private val Vertex  = "v"
   private val Face    = "f"

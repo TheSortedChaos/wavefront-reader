@@ -28,6 +28,8 @@ These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexB
   - fromFile
 - check the documentation (comments in code)
 - create documentation plantUml?
+- interpolate normals?
+- normal mapping
   
   
 [blender]: https://www.blender.org/
