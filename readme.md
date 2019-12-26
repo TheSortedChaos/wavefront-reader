@@ -30,7 +30,7 @@ These `Mesh` objects can than be used for filling a [VertexBufferObject][vertexB
 - create documentation plantUml?
 - interpolate normals?
 - normal mapping (better math (BigDecimals?))
-- refactor Timer --> with LogMessages
+- Timer measure stuff --> with LogMessages
   
   
 [blender]: https://www.blender.org/

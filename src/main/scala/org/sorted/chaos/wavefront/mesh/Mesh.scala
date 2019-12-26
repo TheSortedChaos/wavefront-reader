@@ -73,7 +73,6 @@ object Mesh extends Geometry {
   // scalastyle:off magic.number
   // scalastyle:off method.length
   def normalMapping(mesh: Mesh): Mesh = {
-    val t1 = Timer.start
     @tailrec
     def helper(
         vertices: Vector[Float],
@@ -118,7 +117,6 @@ object Mesh extends Geometry {
       (Vector.empty[Float], Vector.empty[Float])
     )
 
-    Timer.end(t1, "Create Normal Mapping")
     Mesh(
       vertices   = mesh.vertices,
       textures   = mesh.textures,

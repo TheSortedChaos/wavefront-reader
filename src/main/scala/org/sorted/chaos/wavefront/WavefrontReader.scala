@@ -21,10 +21,7 @@ object WavefrontReader {
     */
   def from(filename: String): Mesh = {
     val wavefront = getWavefront(filename)
-    val t1        = Timer.start
-    val result    = Mesh.from(wavefront)
-    Timer.end(t1, "Create the mesh from the wavefront")
-    result
+    Mesh.from(wavefront)
   }
 
   /**
@@ -101,12 +98,7 @@ object WavefrontReader {
   }
 
   private def getWavefront(filename: String) = {
-    val t1    = Timer.start
     val lines = FileReader.read(filename)
-    Timer.end(t1, "Read the file")
-    val t2     = Timer.start
-    val result = Wavefront.from(lines)
-    Timer.end(t2, "Create a Wavefront")
-    result
+    Wavefront.from(lines)
   }
 }
