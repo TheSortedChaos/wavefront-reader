@@ -1,19 +1,36 @@
 # History
 
 #### 2019-12-16
-Houston we got a problem during reading a 3 MB file:
+I added calculation for NormalMapping (currently only for `Mesh`).
+It works, but the problem is that the calculation has some defects.
+I assume it's coming from `Float` calculations (when I calculate the `biTangent` in the shader the defects are gone).
+I loaded a bigger file and was surprised:
+Loading a 3 MB .obj file caused:
 ```
 Read the file took 167 ms (= 0 s)
 Create a Wavefront took 737 ms (= 0 s)
 Create the mesh from the wavefront took 9004 ms (= 9 s)
 Create Normal Mapping took 24860 ms (= 24 s)
 ```
+HOUSTON WE GOT A PROBLEM. 
+After some testing and reading I slapped myself and exchanged all Array-like-List-usages from the code.
+Now the 3 MB file takes:
 ```
 Read the file took 178 ms (= 0 s)
-Create a Wavefront took 691 ms (= 0 s)
-Create the mesh from the wavefront took 8986 ms (= 8 s)
-Create Normal Mapping took 25540 ms (= 25 s)
+Create a Wavefront took 489 ms (= 0 s)
+Create the mesh from the wavefront took 448 ms (= 0 s)
+Create Normal Mapping took 439 ms (= 0 s)
 ```
+Lesson learned: Never use an `Array` if you don't know the length in the beginning ;)
+Test for `NormalMapping` missing and `NormalMapping` for `IndexMesh`is missing.
+
+#### 2019-12-24
+I found a problem with passing in the filename. 
+Normally with `Source` you can take the filename without `/` in front, but you can't do it with `this.getClass.getResourceAsStream`.
+So to take things similar (like loading textures), the `FileReader`got refactored.
+I also think about passing in a file (not in `resources`) for "better" usage.
+Put that point on the TODO list.
+I add some missing tests and refactor some stuff to make SonarCloud happy.
 
 #### 2019-12-21
 I refactored the whole result classes (the Meshes).
