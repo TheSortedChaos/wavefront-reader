@@ -8,6 +8,12 @@ Create a Wavefront took 737 ms (= 0 s)
 Create the mesh from the wavefront took 9004 ms (= 9 s)
 Create Normal Mapping took 24860 ms (= 24 s)
 ```
+```
+Read the file took 178 ms (= 0 s)
+Create a Wavefront took 691 ms (= 0 s)
+Create the mesh from the wavefront took 8986 ms (= 8 s)
+Create Normal Mapping took 25540 ms (= 25 s)
+```
 
 #### 2019-12-21
 I refactored the whole result classes (the Meshes).

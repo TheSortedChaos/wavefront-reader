@@ -8,11 +8,6 @@ import org.sorted.chaos.wavefront.reader.Material
 class WavefrontReaderTest extends WordSpec with Matchers {
 
   "The WavefrontReader" should {
-    "bigFile" in {
-      val actual = WavefrontReader.from("/bs_smile.obj")
-      val normal = Mesh.normalMapping(actual)
-    }
-
     "read an .obj file with vertices" in {
       val actual = WavefrontReader.from("/plane-with-vertices.obj")
       actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,

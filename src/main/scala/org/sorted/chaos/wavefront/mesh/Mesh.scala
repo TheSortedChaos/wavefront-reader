@@ -1,7 +1,7 @@
 package org.sorted.chaos.wavefront.mesh
 
-import org.joml.{Vector2f, Vector3f}
-import org.sorted.chaos.wavefront.reader.{NormalMapping, NormalMappingPoint, NormalMappingTriangle, Wavefront}
+import org.joml.{ Vector2f, Vector3f }
+import org.sorted.chaos.wavefront.reader.{ NormalMapping, NormalMappingPoint, NormalMappingTriangle, Wavefront }
 import org.sorted.chaos.wavefront.utilities.Timer
 
 import scala.annotation.tailrec
@@ -23,12 +23,20 @@ final case class Mesh(
 
 object Mesh extends Geometry {
 
-  private def empty = Mesh(
-    vertices   = Array.emptyFloatArray,
-    textures   = Array.emptyFloatArray,
-    normals    = Array.emptyFloatArray,
-    tangents   = Array.emptyFloatArray,
-    biTangents = Array.emptyFloatArray
+  private final case class Accumulator(
+      vertices: Vector[Float],
+      textures: Vector[Float],
+      normals: Vector[Float],
+      tangents: Vector[Float],
+      biTangents: Vector[Float]
+  )
+
+  private def emptyAccumulator = Accumulator(
+    Vector.empty,
+    Vector.empty,
+    Vector.empty,
+    Vector.empty,
+    Vector.empty
   )
 
   def from(wavefront: Wavefront): Mesh = {
@@ -37,21 +45,29 @@ object Mesh extends Geometry {
     val wavefrontNormals   = wavefront.normals
     val wavefrontTriangles = wavefront.triangles
 
-    wavefrontTriangles.foldLeft(Mesh.empty) { (accumulator, triangle) =>
+    val accumulator = wavefrontTriangles.foldLeft(emptyAccumulator) { (accumulator, triangle) =>
       {
         val vertices = getVerticesOfTriangle(triangle, wavefrontVertices)
         val textures = getTexturesOfTriangle(triangle, wavefrontTextures)
         val normals  = getNormalsOfTriangle(triangle, wavefrontNormals)
 
-        Mesh(
+        Accumulator(
           vertices   = accumulator.vertices ++ vertices,
           textures   = accumulator.textures ++ textures,
           normals    = accumulator.normals ++ normals,
-          tangents   = Array.emptyFloatArray,
-          biTangents = Array.emptyFloatArray
+          tangents   = Vector.empty,
+          biTangents = Vector.empty
         )
       }
     }
+
+    Mesh(
+      accumulator.vertices.toArray,
+      accumulator.textures.toArray,
+      accumulator.normals.toArray,
+      Array.emptyFloatArray,
+      Array.emptyFloatArray
+    )
   }
 
   // scalastyle:off magic.number
@@ -60,10 +76,10 @@ object Mesh extends Geometry {
     val t1 = Timer.start
     @tailrec
     def helper(
-        vertices: Array[Float],
-        textures: Array[Float],
-        accumulator: (Array[Float], Array[Float])
-    ): (Array[Float], Array[Float]) =
+        vertices: Vector[Float],
+        textures: Vector[Float],
+        accumulator: (Vector[Float], Vector[Float])
+    ): (Vector[Float], Vector[Float]) =
       if (vertices.isEmpty || textures.isEmpty) {
         accumulator
       } else {
@@ -88,18 +104,18 @@ object Mesh extends Geometry {
         val nmTriangle = NormalMappingTriangle(p0, p1, p2)
 
         val result    = NormalMapping.generateFrom(nmTriangle)
-        val tangent   = Array(result._1.x, result._1.y, result._1.z)
-        val biTangent = Array(result._2.x, result._2.y, result._2.z)
+        val tangent   = Vector(result._1.x, result._1.y, result._1.z)
+        val biTangent = Vector(result._2.x, result._2.y, result._2.z)
 
         val newAccumulator =
-          ((accumulator._1 :++ tangent :++ tangent :++ tangent), (accumulator._2 :++ biTangent :++ biTangent :++ biTangent))
+          (accumulator._1 ++ tangent ++ tangent ++ tangent, accumulator._2 ++ biTangent ++ biTangent ++ biTangent)
         helper(restVertices, restTextures, newAccumulator)
       }
 
     val result = helper(
-      mesh.vertices,
-      mesh.textures,
-      (Array.emptyFloatArray, Array.emptyFloatArray)
+      mesh.vertices.toVector,
+      mesh.textures.toVector,
+      (Vector.empty[Float], Vector.empty[Float])
     )
 
     Timer.end(t1, "Create Normal Mapping")
@@ -107,8 +123,8 @@ object Mesh extends Geometry {
       vertices   = mesh.vertices,
       textures   = mesh.textures,
       normals    = mesh.normals,
-      tangents   = result._1,
-      biTangents = result._2
+      tangents   = result._1.toArray,
+      biTangents = result._2.toArray
     )
   }
   // scalastyle:on magic.number

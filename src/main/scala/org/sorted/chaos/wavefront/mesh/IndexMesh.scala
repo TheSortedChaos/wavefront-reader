@@ -60,9 +60,9 @@ object IndexMesh {
       }
     }
 
-    val vertices = result.vertices.flatMap(_.toArray).toArray
-    val textures = result.textures.flatMap(_.toArray).toArray
-    val normals  = result.normals.flatMap(_.toArray).toArray
+    val vertices = result.vertices.flatMap(_.toVector).toArray
+    val textures = result.textures.flatMap(_.toVector).toArray
+    val normals  = result.normals.flatMap(_.toVector).toArray
     val indexes  = result.indexes.toArray
 
     IndexMesh(vertices, textures, normals, indexes)
