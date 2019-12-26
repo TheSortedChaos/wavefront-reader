@@ -1,6 +1,6 @@
 # History
 
-#### 2019-12-16
+#### 2019-12-26
 I added calculation for NormalMapping (currently only for `Mesh`).
 It works, but the problem is that the calculation has some defects.
 I assume it's coming from `Float` calculations (when I calculate the `biTangent` in the shader the defects are gone).
