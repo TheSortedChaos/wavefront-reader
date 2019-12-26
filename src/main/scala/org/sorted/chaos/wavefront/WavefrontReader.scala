@@ -3,7 +3,7 @@ package org.sorted.chaos.wavefront
 import org.joml.Vector3f
 import org.sorted.chaos.wavefront.mesh.{ IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh }
 import org.sorted.chaos.wavefront.reader.{ Material, Wavefront }
-import org.sorted.chaos.wavefront.utilities.{ FileReader, Timer }
+import org.sorted.chaos.wavefront.utilities.FileReader
 
 object WavefrontReader {
 

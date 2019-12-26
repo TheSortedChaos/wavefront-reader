@@ -2,7 +2,6 @@ package org.sorted.chaos.wavefront.mesh
 
 import org.joml.{ Vector2f, Vector3f }
 import org.sorted.chaos.wavefront.reader.{ NormalMapping, NormalMappingPoint, NormalMappingTriangle, Wavefront }
-import org.sorted.chaos.wavefront.utilities.Timer
 
 import scala.annotation.tailrec
 
