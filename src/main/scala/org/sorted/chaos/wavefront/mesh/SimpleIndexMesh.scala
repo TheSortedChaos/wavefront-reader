@@ -19,9 +19,9 @@ object SimpleIndexMesh {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTriangles = wavefront.triangles
 
-    val vertices   = wavefrontVertices.flatMap(point => point.toVector)
+    val vertices    = wavefrontVertices.flatMap(point => point.toVector)
     val colorVector = color.toVector
-    val col        = Vector.tabulate(vertices.length)(index => colorVector(index % 3))
+    val col         = Vector.tabulate(vertices.length)(index => colorVector(index % 3))
     val indexes = wavefrontTriangles
       .flatMap(triangle => {
         triangle.indices.map(_.vertexIndex - 1) // subtract 1 because of starting index obj vs scala (collection)

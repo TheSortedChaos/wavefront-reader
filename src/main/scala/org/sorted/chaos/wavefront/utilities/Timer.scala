@@ -9,7 +9,7 @@ object Timer {
   }
 
   def end(timer: Timer, caption: String): Timer = {
-    val end = System.currentTimeMillis()
+    val end      = System.currentTimeMillis()
     val duration = end - timer.start
     println(s"$caption took $duration ms (= ${duration / 1000} s)")
     Timer(timer.start, end)

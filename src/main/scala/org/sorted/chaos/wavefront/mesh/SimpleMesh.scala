@@ -21,7 +21,7 @@ object SimpleMesh extends Geometry {
     val wavefrontVertices  = wavefront.vertices
     val wavefrontTriangles = wavefront.triangles
 
-    val accumulator =wavefrontTriangles.foldLeft(emptyAccumulator) { (accumulator, triangle) =>
+    val accumulator = wavefrontTriangles.foldLeft(emptyAccumulator) { (accumulator, triangle) =>
       {
         val vertices = getVerticesOfTriangle(triangle, wavefrontVertices)
         val col      = getColorOfTriangle(color)
@@ -35,7 +35,7 @@ object SimpleMesh extends Geometry {
 
     SimpleMesh(
       vertices = accumulator.vertices.toArray,
-      color = accumulator.color.toArray
+      color    = accumulator.color.toArray
     )
   }
 }
