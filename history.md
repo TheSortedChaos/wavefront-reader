@@ -2,6 +2,10 @@
 
 #### 2019-12-29
 Added missing tests.
+Found a new problem.
+When calculating the tangents and biTangents for each Triangle and reassign the indices, suddenly all Points become unique.
+So the benefit of indexing is removed.
+I have to think about it.... :/  
 
 #### 2019-12-28
 I refactored the whole NormalMapping calculation.
