@@ -1,6 +1,7 @@
 package org.sorted.chaos.wavefront.reader
 
-import org.scalatest.{ Matchers, WordSpec }
+import org.joml.Vector3f
+import org.scalatest.{Matchers, WordSpec}
 
 class PointTest extends WordSpec with Matchers {
     import Point._
@@ -8,7 +9,7 @@ class PointTest extends WordSpec with Matchers {
   "A Point" should {
     "be extracted from a valid String" in {
       val input  = "TOKEN 1.0 2.0 3.0"
-      input.getPoint shouldBe Point(1.0f, 2.0f, 3.0f)
+      input.getPoint shouldBe new Vector3f(1.0f, 2.0f, 3.0f)
     }
 
     "NOT be extracted from an invalid String - (one number missing)" in {

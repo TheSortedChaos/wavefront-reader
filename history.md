@@ -1,5 +1,51 @@
 # History
 
+#### 2019-12-29
+Added missing tests.
+Found a new problem.
+When calculating the tangents and biTangents for each Triangle and reassign the indices, suddenly all Points become unique.
+So the benefit of indexing is removed.
+I have to think about it.... :/  
+
+#### 2019-12-28
+I refactored the whole NormalMapping calculation.
+I added NormalMapping support also for `IndexMesh`.
+Test are missing.
+I tested the visualization with a simple graphic demo.
+NormalMapping works like before (for `Mesh` without index). 
+
+#### 2019-12-26
+I added calculation for NormalMapping (currently only for `Mesh`).
+It works, but the problem is that the calculation has some defects.
+I assume it's coming from `Float` calculations (when I calculate the `biTangent` in the shader the defects are gone).
+I loaded a bigger file and was surprised:
+Loading a 3 MB .obj file caused:
+```
+Read the file took 167 ms (= 0 s)
+Create a Wavefront took 737 ms (= 0 s)
+Create the mesh from the wavefront took 9004 ms (= 9 s)
+Create Normal Mapping took 24860 ms (= 24 s)
+```
+HOUSTON WE GOT A PROBLEM. 
+After some testing and reading I slapped myself and exchanged all Array-like-List-usages from the code.
+Now the 3 MB file takes:
+```
+Read the file took 178 ms (= 0 s)
+Create a Wavefront took 489 ms (= 0 s)
+Create the mesh from the wavefront took 448 ms (= 0 s)
+Create Normal Mapping took 439 ms (= 0 s)
+```
+Lesson learned: Never use an `Array` if you don't know the length in the beginning ;)
+Test for `NormalMapping` missing and `NormalMapping` for `IndexMesh`is missing.
+
+#### 2019-12-24
+I found a problem with passing in the filename. 
+Normally with `Source` you can take the filename without `/` in front, but you can't do it with `this.getClass.getResourceAsStream`.
+So to take things similar (like loading textures), the `FileReader`got refactored.
+I also think about passing in a file (not in `resources`) for "better" usage.
+Put that point on the TODO list.
+I add some missing tests and refactor some stuff to make SonarCloud happy.
+
 #### 2019-12-21
 I refactored the whole result classes (the Meshes).
 Instead of having one class for each type now there is only one type.

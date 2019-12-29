@@ -1,5 +1,6 @@
 package org.sorted.chaos.wavefront.reader
 
+import org.joml.Vector2f
 import org.scalatest.{ Matchers, WordSpec }
 
 class UVCoordinateTest extends WordSpec with Matchers {
@@ -8,7 +9,7 @@ class UVCoordinateTest extends WordSpec with Matchers {
   "A UVCoordinate" should {
     "be extracted from a valid String" in {
       val input = "TOKEN 1.0 2.0"
-      input.getUVCoordinate shouldBe UVCoordinate(1.0f, 2.0f)
+      input.getUVCoordinate shouldBe new Vector2f(1.0f, 2.0f)
     }
 
     "NOT be extracted from an invalid String - (one number missing)" in {

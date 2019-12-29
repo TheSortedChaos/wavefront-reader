@@ -18,6 +18,31 @@ import org.sorted.chaos.wavefront.reader.Wavefront.Space
 final case class Triangle(point1: Indices, point2: Indices, point3: Indices) {
 
   def indices: Vector[Indices] = Vector(point1, point2, point3)
+
+  def addNormalMappingIndex(tangentsIndex: Int, biTangentsIndex: Int): Triangle =
+    Triangle(
+      point1 = Indices(
+        vertexIndex     = this.point1.vertexIndex,
+        textureIndex    = this.point1.textureIndex,
+        normalIndex     = this.point1.normalIndex,
+        tangentsIndex   = Some(tangentsIndex),
+        biTangentsIndex = Some(biTangentsIndex)
+      ),
+      point2 = Indices(
+        vertexIndex     = this.point2.vertexIndex,
+        textureIndex    = this.point2.textureIndex,
+        normalIndex     = this.point2.normalIndex,
+        tangentsIndex   = Some(tangentsIndex),
+        biTangentsIndex = Some(biTangentsIndex)
+      ),
+      point3 = Indices(
+        vertexIndex     = this.point3.vertexIndex,
+        textureIndex    = this.point3.textureIndex,
+        normalIndex     = this.point3.normalIndex,
+        tangentsIndex   = Some(tangentsIndex),
+        biTangentsIndex = Some(biTangentsIndex)
+      )
+    )
 }
 
 object Triangle {

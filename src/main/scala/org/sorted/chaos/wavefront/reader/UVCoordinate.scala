@@ -1,26 +1,16 @@
 package org.sorted.chaos.wavefront.reader
 
-/**
-  * This model class represents the Texture definition of the .obj file, starting with `vt ...`
-  * Example:
-  * * `vt 0.609836 0.758661`
-  *
-  * @param u coordinate
-  * @param v coordinate
-  */
-final case class UVCoordinate(u: Float, v: Float) {
-  def toArray: Array[Float] = Array(u, v)
-}
+import org.joml.Vector2f
 
 object UVCoordinate extends FloatExtractor {
   implicit class ExtractUVCoordinateFrom(val line: String) {
-    def getUVCoordinate: UVCoordinate = {
+    def getUVCoordinate: Vector2f = {
       val tuple = extract(line)
       validateInput(line, tuple.lineParts, tuple.numbers)
 
-      UVCoordinate(
-        u = tuple.numbers(0),
-        v = tuple.numbers(1)
+      new Vector2f(
+        tuple.numbers(0),
+        tuple.numbers(1)
       )
     }
 

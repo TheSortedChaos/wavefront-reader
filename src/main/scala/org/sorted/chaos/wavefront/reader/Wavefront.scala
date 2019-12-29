@@ -1,5 +1,7 @@
 package org.sorted.chaos.wavefront.reader
 
+import org.joml.{ Vector2f, Vector3f }
+
 /**
   * This model class represents the .obj file, containing all the relevant data
   *
@@ -9,10 +11,12 @@ package org.sorted.chaos.wavefront.reader
   * @param textures a list of texture definitions
   */
 final case class Wavefront(
-    vertices: Vector[Point],
+    vertices: Vector[Vector3f],
     triangles: Vector[Triangle],
-    normals: Vector[Point],
-    textures: Vector[UVCoordinate]
+    normals: Vector[Vector3f],
+    textures: Vector[Vector2f],
+    tangents: Vector[Vector3f],
+    biTangents: Vector[Vector3f]
 )
 
 object Wavefront {
@@ -20,19 +24,21 @@ object Wavefront {
   import Triangle._
   import UVCoordinate._
 
-  private[reader] final val Space = " "
+  private[reader] val Space = " "
 
-  private final val Vertex  = "v"
-  private final val Face    = "f"
-  private final val Texture = "vt"
-  private final val Normal  = "vn"
+  private val Vertex  = "v"
+  private val Face    = "f"
+  private val Texture = "vt"
+  private val Normal  = "vn"
 
   private def empty =
     Wavefront(
-      vertices  = Vector.empty[Point],
-      triangles = Vector.empty[Triangle],
-      normals   = Vector.empty[Point],
-      textures  = Vector.empty[UVCoordinate]
+      vertices   = Vector.empty[Vector3f],
+      triangles  = Vector.empty[Triangle],
+      normals    = Vector.empty[Vector3f],
+      textures   = Vector.empty[Vector2f],
+      tangents   = Vector.empty[Vector3f],
+      biTangents = Vector.empty[Vector3f]
     )
 
   def from(lines: Vector[String]): Wavefront =

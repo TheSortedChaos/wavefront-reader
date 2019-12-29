@@ -1,5 +1,6 @@
 package org.sorted.chaos.wavefront.reader
 
+import org.joml.{ Vector2f, Vector3f }
 import org.scalatest.{ Matchers, WordSpec }
 
 class WavefrontTest extends WordSpec with Matchers {
@@ -31,25 +32,27 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, None, None),
-            Indices(2, None, None),
-            Indices(3, None, None)
+            Indices(1, None, None, None, None),
+            Indices(2, None, None, None, None),
+            Indices(3, None, None, None, None)
           ),
           Triangle(
-            Indices(1, None, None),
-            Indices(3, None, None),
-            Indices(4, None, None)
+            Indices(1, None, None, None, None),
+            Indices(3, None, None, None, None),
+            Indices(4, None, None, None, None)
           )
         ),
-        normals  = Vector.empty[Point],
-        textures = Vector.empty[UVCoordinate]
+        normals    = Vector.empty[Vector3f],
+        textures   = Vector.empty[Vector2f],
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
 
@@ -71,30 +74,32 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, Some(1), None),
-            Indices(2, Some(2), None),
-            Indices(3, Some(3), None)
+            Indices(1, Some(1), None, None, None),
+            Indices(2, Some(2), None, None, None),
+            Indices(3, Some(3), None, None, None)
           ),
           Triangle(
-            Indices(1, Some(1), None),
-            Indices(3, Some(3), None),
-            Indices(4, Some(4), None)
+            Indices(1, Some(1), None, None, None),
+            Indices(3, Some(3), None, None, None),
+            Indices(4, Some(4), None, None, None)
           )
         ),
-        normals = Vector.empty[Point],
+        normals = Vector.empty[Vector3f],
         textures = Vector(
-          UVCoordinate(0.0f, 0.0f),
-          UVCoordinate(1.0f, 0.0f),
-          UVCoordinate(1.0f, 1.0f),
-          UVCoordinate(0.0f, 1.0f)
-        )
+          new Vector2f(0.0f, 0.0f),
+          new Vector2f(1.0f, 0.0f),
+          new Vector2f(1.0f, 1.0f),
+          new Vector2f(0.0f, 1.0f)
+        ),
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
 
@@ -113,27 +118,29 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, None, Some(1)),
-            Indices(2, None, Some(1)),
-            Indices(3, None, Some(1))
+            Indices(1, None, Some(1), None, None),
+            Indices(2, None, Some(1), None, None),
+            Indices(3, None, Some(1), None, None)
           ),
           Triangle(
-            Indices(1, None, Some(1)),
-            Indices(3, None, Some(1)),
-            Indices(4, None, Some(1))
+            Indices(1, None, Some(1), None, None),
+            Indices(3, None, Some(1), None, None),
+            Indices(4, None, Some(1), None, None)
           )
         ),
         normals = Vector(
-          Point(0.0f, 0.0f, 1.0f)
+          new Vector3f(0.0f, 0.0f, 1.0f)
         ),
-        textures = Vector.empty[UVCoordinate]
+        textures   = Vector.empty[Vector2f],
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
 
@@ -156,32 +163,34 @@ class WavefrontTest extends WordSpec with Matchers {
       val actual = Wavefront.from(input)
       actual shouldBe Wavefront(
         vertices = Vector(
-          Point(1.0f, 1.0f, 0.0f),
-          Point(4.0f, 1.0f, 0.0f),
-          Point(4.0f, 4.0f, 0.0f),
-          Point(1.0f, 4.0f, 0.0f)
+          new Vector3f(1.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 1.0f, 0.0f),
+          new Vector3f(4.0f, 4.0f, 0.0f),
+          new Vector3f(1.0f, 4.0f, 0.0f)
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, Some(1), Some(1)),
-            Indices(2, Some(2), Some(1)),
-            Indices(3, Some(3), Some(1))
+            Indices(1, Some(1), Some(1), None, None),
+            Indices(2, Some(2), Some(1), None, None),
+            Indices(3, Some(3), Some(1), None, None)
           ),
           Triangle(
-            Indices(1, Some(1), Some(1)),
-            Indices(3, Some(3), Some(1)),
-            Indices(4, Some(4), Some(1))
+            Indices(1, Some(1), Some(1), None, None),
+            Indices(3, Some(3), Some(1), None, None),
+            Indices(4, Some(4), Some(1), None, None)
           )
         ),
         normals = Vector(
-          Point(0.0f, 0.0f, 1.0f)
+          new Vector3f(0.0f, 0.0f, 1.0f)
         ),
         textures = Vector(
-          UVCoordinate(0.0f, 0.0f),
-          UVCoordinate(1.0f, 0.0f),
-          UVCoordinate(1.0f, 1.0f),
-          UVCoordinate(0.0f, 1.0f)
-        )
+          new Vector2f(0.0f, 0.0f),
+          new Vector2f(1.0f, 0.0f),
+          new Vector2f(1.0f, 1.0f),
+          new Vector2f(0.0f, 1.0f)
+        ),
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
   }
