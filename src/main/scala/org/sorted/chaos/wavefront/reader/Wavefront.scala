@@ -14,7 +14,9 @@ final case class Wavefront(
     vertices: Vector[Vector3f],
     triangles: Vector[Triangle],
     normals: Vector[Vector3f],
-    textures: Vector[Vector2f]
+    textures: Vector[Vector2f],
+    tangents: Vector[Vector3f],
+    biTangents: Vector[Vector3f]
 )
 
 object Wavefront {
@@ -31,10 +33,12 @@ object Wavefront {
 
   private def empty =
     Wavefront(
-      vertices  = Vector.empty[Vector3f],
-      triangles = Vector.empty[Triangle],
-      normals   = Vector.empty[Vector3f],
-      textures  = Vector.empty[Vector2f]
+      vertices   = Vector.empty[Vector3f],
+      triangles  = Vector.empty[Triangle],
+      normals    = Vector.empty[Vector3f],
+      textures   = Vector.empty[Vector2f],
+      tangents   = Vector.empty[Vector3f],
+      biTangents = Vector.empty[Vector3f]
     )
 
   def from(lines: Vector[String]): Wavefront =

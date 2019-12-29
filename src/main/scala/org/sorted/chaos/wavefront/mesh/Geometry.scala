@@ -52,11 +52,61 @@ trait Geometry {
     val indices = triangle.indices
 
     (indices(0).normalIndex, indices(1).normalIndex, indices(2).normalIndex) match {
-      case (Some(n1), Some(n2), Some(n3)) =>
+      case (Some(index1), Some(index2), Some(index3)) =>
         // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
-        val point1 = normals(n1 - 1)
-        val point2 = normals(n2 - 1)
-        val point3 = normals(n3 - 1)
+        val point1 = normals(index1 - 1)
+        val point2 = normals(index2 - 1)
+        val point3 = normals(index3 - 1)
+
+        Vector(
+          point1.x,
+          point1.y,
+          point1.z,
+          point2.x,
+          point2.y,
+          point2.z,
+          point3.x,
+          point3.y,
+          point3.z
+        )
+      case _ => Vector.empty[Float]
+    }
+  }
+
+  protected def getTangentsOfTriangle(triangle: Triangle, tangents: Vector[Vector3f]): Vector[Float] = {
+    val indices = triangle.indices
+
+    (indices(0).tangentsIndex, indices(1).tangentsIndex, indices(2).tangentsIndex) match {
+      case (Some(index1), Some(index2), Some(index3)) =>
+        // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
+        val point1 = tangents(index1 - 1)
+        val point2 = tangents(index2 - 1)
+        val point3 = tangents(index3 - 1)
+
+        Vector(
+          point1.x,
+          point1.y,
+          point1.z,
+          point2.x,
+          point2.y,
+          point2.z,
+          point3.x,
+          point3.y,
+          point3.z
+        )
+      case _ => Vector.empty[Float]
+    }
+  }
+
+  protected def getBiTangentsOfTriangle(triangle: Triangle, biTangents: Vector[Vector3f]): Vector[Float] = {
+    val indices = triangle.indices
+
+    (indices(0).biTangentsIndex, indices(1).biTangentsIndex, indices(2).biTangentsIndex) match {
+      case (Some(index1), Some(index2), Some(index3)) =>
+        // we have to subtract one because .obj index starts from 1, Scala Collection index starts from 0
+        val point1 = biTangents(index1 - 1)
+        val point2 = biTangents(index2 - 1)
+        val point3 = biTangents(index3 - 1)
 
         Vector(
           point1.x,

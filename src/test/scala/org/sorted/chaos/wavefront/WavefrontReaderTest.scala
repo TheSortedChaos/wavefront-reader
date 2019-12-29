@@ -13,6 +13,8 @@ class WavefrontReaderTest extends WordSpec with Matchers {
         0.0f, 1.0f, 1.0f, 0.0f, -1.0f, -1.0f, 0.0f, -1.0f)
       actual.textures shouldBe Array.emptyFloatArray
       actual.normals shouldBe Array.emptyFloatArray
+      actual.tangents shouldBe Array.emptyFloatArray
+      actual.biTangents shouldBe Array.emptyFloatArray
     }
     "read an .obj file with vertices and textures" in {
       val actual = WavefrontReader.from("/plane-with-vertices-textures.obj")
@@ -21,6 +23,8 @@ class WavefrontReaderTest extends WordSpec with Matchers {
       actual.textures should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
         0.0f, 1.0f)
       actual.normals shouldBe Array.emptyFloatArray
+      actual.tangents shouldBe Array.emptyFloatArray
+      actual.biTangents shouldBe Array.emptyFloatArray
     }
     "read an .obj file with vertices, textures and normals" in {
       val actual = WavefrontReader.from("/plane-with-vertices-textures-normals.obj")
@@ -30,6 +34,21 @@ class WavefrontReaderTest extends WordSpec with Matchers {
         0.0f, 1.0f)
       actual.normals should contain theSameElementsInOrderAs Array(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)
+      actual.tangents shouldBe Array.emptyFloatArray
+      actual.biTangents shouldBe Array.emptyFloatArray
+    }
+    "read an .obj file with vertices, textures and normals and calculate normal mapping" in {
+      val actual = WavefrontReader.withNormalMappingFrom("/plane-with-vertices-textures-normals.obj")
+      actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+        0.0f, 1.0f, 1.0f, 0.0f, -1.0f, -1.0f, 0.0f, -1.0f)
+      actual.textures should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        0.0f, 1.0f)
+      actual.normals should contain theSameElementsInOrderAs Array(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)
+      actual.tangents should contain theSameElementsInOrderAs Array(2.0f, 0.0f, -0.0f, 2.0f, 0.0f, -0.0f, 2.0f, 0.0f, -0.0f, 2.0f,
+        0.0f, -0.0f, 2.0f, 0.0f, -0.0f, 2.0f, 0.0f, -0.0f)
+      actual.biTangents should contain theSameElementsInOrderAs Array(-4.0f, 0.0f, -2.0f, -4.0f, 0.0f, -2.0f, -4.0f, 0.0f, -2.0f,
+        -2.0f, 0.0f, -4.0f, -2.0f, 0.0f, -4.0f, -2.0f, 0.0f, -4.0f)
     }
     "read an .obj file with vertices (create index list for index drawing)" in {
       val actual = WavefrontReader.withIndexFrom("/plane-with-vertices.obj")
@@ -38,6 +57,8 @@ class WavefrontReaderTest extends WordSpec with Matchers {
       actual.textures shouldBe Array.emptyFloatArray
       actual.normals shouldBe Array.emptyFloatArray
       actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 3, 1)
+      actual.tangents shouldBe Array.emptyFloatArray
+      actual.biTangents shouldBe Array.emptyFloatArray
     }
     "read an .obj file with vertices and textures (create index list for index drawing)" in {
       val actual = WavefrontReader.withIndexFrom("/plane-with-vertices-textures.obj")
@@ -46,6 +67,8 @@ class WavefrontReaderTest extends WordSpec with Matchers {
       actual.textures should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f)
       actual.normals shouldBe Array.emptyFloatArray
       actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 3, 1)
+      actual.tangents shouldBe Array.emptyFloatArray
+      actual.biTangents shouldBe Array.emptyFloatArray
     }
     "read an .obj file with vertices, textures and normals (create index list for index drawing)" in {
       val actual = WavefrontReader.withIndexFrom("/plane-with-vertices-textures-normals.obj")
@@ -55,6 +78,23 @@ class WavefrontReaderTest extends WordSpec with Matchers {
       actual.normals should contain theSameElementsInOrderAs Array(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         1.0f, 0.0f)
       actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 3, 1)
+      actual.tangents shouldBe Array.emptyFloatArray
+      actual.biTangents shouldBe Array.emptyFloatArray
+    }
+
+    "read an .obj file with vertices, textures, normals and normal mapping (create index list for index drawing)" ignore {
+      val actual = WavefrontReader.withNormalMappingAndIndexFrom("/plane-with-vertices-textures-normals.obj")
+      // TODO: looks like i found a little problem
+      // when calculating Tangents and BiTangents and reassign the indices the benefits of
+      // index drawing is removed (because of tangents and biTangents all points are becoming unique
+      actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+        0.0f, -1.0f)
+      actual.textures should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f)
+      actual.normals should contain theSameElementsInOrderAs Array(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f)
+      actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 3, 1)
+      // actual.tangents should contain theSameElementsInOrderAs Array(0.0f)
+      // actual.biTangents should contain theSameElementsInOrderAs Array(0.0f)
     }
     "read an .obj file with vertices (for SimpleMesh)" in {
       val actual = WavefrontReader.simpleFrom(

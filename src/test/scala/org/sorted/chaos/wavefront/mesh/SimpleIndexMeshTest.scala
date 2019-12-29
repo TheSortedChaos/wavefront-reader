@@ -16,22 +16,24 @@ class SimpleIndexMeshTest extends WordSpec with Matchers {
       )
       val triangles = Vector(
         Triangle(
-          Indices(1, None, None),
-          Indices(2, None, None),
-          Indices(3, None, None)
+          Indices(1, None, None, None, None),
+          Indices(2, None, None, None, None),
+          Indices(3, None, None, None, None)
         ),
         Triangle(
-          Indices(1, None, None),
-          Indices(3, None, None),
-          Indices(4, None, None)
+          Indices(1, None, None, None, None),
+          Indices(3, None, None, None, None),
+          Indices(4, None, None, None, None)
         )
       )
 
       val wavefront = Wavefront(
-        vertices  = vertices,
-        triangles = triangles,
-        normals   = Vector.empty[Vector3f],
-        textures  = Vector.empty[Vector2f]
+        vertices   = vertices,
+        triangles  = triangles,
+        normals    = Vector.empty[Vector3f],
+        textures   = Vector.empty[Vector2f],
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
       val color = new Vector3f(0.3f, 0.4f, 0.5f)
 

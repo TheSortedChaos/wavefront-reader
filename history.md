@@ -1,5 +1,15 @@
 # History
 
+#### 2019-12-29
+Added missing tests.
+
+#### 2019-12-28
+I refactored the whole NormalMapping calculation.
+I added NormalMapping support also for `IndexMesh`.
+Test are missing.
+I tested the visualization with a simple graphic demo.
+NormalMapping works like before (for `Mesh` without index). 
+
 #### 2019-12-26
 I added calculation for NormalMapping (currently only for `Mesh`).
 It works, but the problem is that the calculation has some defects.

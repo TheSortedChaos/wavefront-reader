@@ -39,18 +39,20 @@ class WavefrontTest extends WordSpec with Matchers {
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, None, None),
-            Indices(2, None, None),
-            Indices(3, None, None)
+            Indices(1, None, None, None, None),
+            Indices(2, None, None, None, None),
+            Indices(3, None, None, None, None)
           ),
           Triangle(
-            Indices(1, None, None),
-            Indices(3, None, None),
-            Indices(4, None, None)
+            Indices(1, None, None, None, None),
+            Indices(3, None, None, None, None),
+            Indices(4, None, None, None, None)
           )
         ),
-        normals  = Vector.empty[Vector3f],
-        textures = Vector.empty[Vector2f]
+        normals    = Vector.empty[Vector3f],
+        textures   = Vector.empty[Vector2f],
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
 
@@ -79,14 +81,14 @@ class WavefrontTest extends WordSpec with Matchers {
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, Some(1), None),
-            Indices(2, Some(2), None),
-            Indices(3, Some(3), None)
+            Indices(1, Some(1), None, None, None),
+            Indices(2, Some(2), None, None, None),
+            Indices(3, Some(3), None, None, None)
           ),
           Triangle(
-            Indices(1, Some(1), None),
-            Indices(3, Some(3), None),
-            Indices(4, Some(4), None)
+            Indices(1, Some(1), None, None, None),
+            Indices(3, Some(3), None, None, None),
+            Indices(4, Some(4), None, None, None)
           )
         ),
         normals = Vector.empty[Vector3f],
@@ -95,7 +97,9 @@ class WavefrontTest extends WordSpec with Matchers {
           new Vector2f(1.0f, 0.0f),
           new Vector2f(1.0f, 1.0f),
           new Vector2f(0.0f, 1.0f)
-        )
+        ),
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
 
@@ -121,20 +125,22 @@ class WavefrontTest extends WordSpec with Matchers {
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, None, Some(1)),
-            Indices(2, None, Some(1)),
-            Indices(3, None, Some(1))
+            Indices(1, None, Some(1), None, None),
+            Indices(2, None, Some(1), None, None),
+            Indices(3, None, Some(1), None, None)
           ),
           Triangle(
-            Indices(1, None, Some(1)),
-            Indices(3, None, Some(1)),
-            Indices(4, None, Some(1))
+            Indices(1, None, Some(1), None, None),
+            Indices(3, None, Some(1), None, None),
+            Indices(4, None, Some(1), None, None)
           )
         ),
         normals = Vector(
           new Vector3f(0.0f, 0.0f, 1.0f)
         ),
-        textures = Vector.empty[Vector2f]
+        textures   = Vector.empty[Vector2f],
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
 
@@ -164,14 +170,14 @@ class WavefrontTest extends WordSpec with Matchers {
         ),
         triangles = Vector(
           Triangle(
-            Indices(1, Some(1), Some(1)),
-            Indices(2, Some(2), Some(1)),
-            Indices(3, Some(3), Some(1))
+            Indices(1, Some(1), Some(1), None, None),
+            Indices(2, Some(2), Some(1), None, None),
+            Indices(3, Some(3), Some(1), None, None)
           ),
           Triangle(
-            Indices(1, Some(1), Some(1)),
-            Indices(3, Some(3), Some(1)),
-            Indices(4, Some(4), Some(1))
+            Indices(1, Some(1), Some(1), None, None),
+            Indices(3, Some(3), Some(1), None, None),
+            Indices(4, Some(4), Some(1), None, None)
           )
         ),
         normals = Vector(
@@ -182,7 +188,9 @@ class WavefrontTest extends WordSpec with Matchers {
           new Vector2f(1.0f, 0.0f),
           new Vector2f(1.0f, 1.0f),
           new Vector2f(0.0f, 1.0f)
-        )
+        ),
+        tangents   = Vector.empty[Vector3f],
+        biTangents = Vector.empty[Vector3f]
       )
     }
   }

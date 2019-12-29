@@ -2,7 +2,7 @@ package org.sorted.chaos.wavefront
 
 import org.joml.Vector3f
 import org.sorted.chaos.wavefront.mesh.{ IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh }
-import org.sorted.chaos.wavefront.reader.{ Material, Wavefront }
+import org.sorted.chaos.wavefront.reader.{ Material, NormalMapping, Wavefront }
 import org.sorted.chaos.wavefront.utilities.FileReader
 
 object WavefrontReader {
@@ -25,6 +25,28 @@ object WavefrontReader {
   }
 
   /**
+    * This method creates a [[org.sorted.chaos.wavefront.mesh.Mesh]] with
+    *  - vertices
+    *  - textures (optional)
+    *  - normals (optional)
+    *  - tangents (optional)
+    *  - biTangents (optional)
+    * from an .obj file
+    * @param filename the .obj file (represents the input data)
+    * @return a [[org.sorted.chaos.wavefront.mesh.Mesh]] with
+    *          - Array[Float] for vertices
+    *          - Array[Float] for textures (is empty, if file does not contain this data type)
+    *          - Array[Float] for normals (is empty, if file does not contain this data type)
+    *          - Array[Float] for tangents (is empty, if file does not contain this data type)
+    *          - Array[Float] for biTangents (is empty, if file does not contain this data type)
+    */
+  def withNormalMappingFrom(filename: String): Mesh = {
+    val wavefront         = getWavefront(filename)
+    val withNormalMapping = NormalMapping.calculateFrom(wavefront)
+    Mesh.from(withNormalMapping)
+  }
+
+  /**
     * This method creates a [[org.sorted.chaos.wavefront.mesh.IndexMesh]] with
     *  - vertices
     *  - textures (optional)
@@ -42,6 +64,31 @@ object WavefrontReader {
   def withIndexFrom(filename: String): IndexMesh = {
     val wavefront = getWavefront(filename)
     IndexMesh.from(wavefront)
+  }
+
+  /**
+    * This method creates a [[org.sorted.chaos.wavefront.mesh.IndexMesh]] with
+    *  - vertices
+    *  - textures (optional)
+    *  - normals (optional)
+    *  - tangents (optional)
+    *  - biTangents (optional)
+    *  - indexes
+    * from an .obj file. It can be used for OpenGL IndexDrawing with normal mapping.
+    *
+    * @param filename the .obj file (represents the input data)
+    * @return a [[org.sorted.chaos.wavefront.mesh.IndexMesh]] with
+    *          - Array[Float] for vertices
+    *          - Array[Float] for textures (is empty, if file does not contain this data type)
+    *          - Array[Float] for normals (is empty, if file does not contain this data type)
+    *          - Array[Float] for tangents (is empty, if file does not contain this data type)
+    *          - Array[Float] for biTangents (is empty, if file does not contain this data type)
+    *          - Array[Int] the index list for IndexDrawing
+    */
+  def withNormalMappingAndIndexFrom(filename: String): IndexMesh = {
+    val wavefront         = getWavefront(filename)
+    val withNormalMapping = NormalMapping.calculateFrom(wavefront)
+    IndexMesh.from(withNormalMapping)
   }
 
   /**
