@@ -9,6 +9,7 @@ final case class NormalMappingTriangle(p0: NormalMappingPoint, p1: NormalMapping
 // http://ogldev.atspace.co.uk/www/tutorial26/tutorial26.html
 // http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
 // https://learnopengl.com/Advanced-Lighting/Normal-Mapping
+// https://viscircle.de/welche-techniken-sie-fuer-das-normal-mapping-einsetzen-koennen/
 object NormalMapping {
   def calculateFrom(wavefront: Wavefront): Wavefront = {
     val withNormalMapping = generateNormalMapping(wavefront)

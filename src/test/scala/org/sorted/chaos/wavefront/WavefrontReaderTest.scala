@@ -82,7 +82,7 @@ class WavefrontReaderTest extends WordSpec with Matchers {
       actual.biTangents shouldBe Array.emptyFloatArray
     }
 
-    "read an .obj file with vertices, textures, normals and normal mapping (create index list for index drawing)" ignore {
+    "read an .obj file with vertices, textures, normals and normal mapping (create index list for index drawing)" in {
       val actual = WavefrontReader.withNormalMappingAndIndexFrom("/plane-with-vertices-textures-normals.obj")
       // TODO: looks like i found a little problem
       // when calculating Tangents and BiTangents and reassign the indices the benefits of
