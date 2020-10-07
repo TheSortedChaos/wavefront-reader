@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/TheSortedChaos/wavefront-reader/branch/master/graph/badge.svg)](https://codecov.io/gh/TheSortedChaos/wavefront-reader)
 # wavefront-reader
 The _wavefront-reader_ can read [.obj][wavefront] files and transform then into usable data for [OpenGL][opengl] (`Array[Float]`, `Array[Int]`)
 Wavefront (.obj) files are used to store geometric data, like geometric objects build with [Blender][blender].
