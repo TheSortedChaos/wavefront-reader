@@ -1,5 +1,10 @@
 # History
 
+#### 2020-10-07
+After some sleeping time, I decide to move the repository to a new gitHub account.
+The plan is to push it to the central maven repository, remove the problem with normal mapping.
+Create new TravisCI (or perhaps gitHub build plan) and SonarCube account for it.
+
 #### 2019-12-29
 Added missing tests.
 Found a new problem.
