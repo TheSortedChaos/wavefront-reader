@@ -1,7 +1,7 @@
 package de.sorted.chaos.wavefront.reader
 
 import org.joml.Vector2f
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class UVCoordinateTest extends WordSpec with Matchers {
   import UVCoordinate._

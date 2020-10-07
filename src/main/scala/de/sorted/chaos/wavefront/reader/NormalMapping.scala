@@ -1,6 +1,6 @@
 package de.sorted.chaos.wavefront.reader
 
-import org.joml.{Vector2f, Vector3f}
+import org.joml.{ Vector2f, Vector3f }
 
 final case class NormalMappingPoint(vertex: Vector3f, texture: Vector2f)
 

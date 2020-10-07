@@ -2,7 +2,7 @@ package de.sorted.chaos.wavefront
 
 import de.sorted.chaos.wavefront.reader.Material
 import org.joml.Vector3f
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class WavefrontReaderTest extends WordSpec with Matchers {
 
@@ -80,21 +80,6 @@ class WavefrontReaderTest extends WordSpec with Matchers {
       actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 3, 1)
       actual.tangents shouldBe Array.emptyFloatArray
       actual.biTangents shouldBe Array.emptyFloatArray
-    }
-
-    "read an .obj file with vertices, textures, normals and normal mapping (create index list for index drawing)" in {
-      val actual = WavefrontReader.withNormalMappingAndIndexFrom("/plane-with-vertices-textures-normals.obj")
-      // TODO: looks like i found a little problem
-      // when calculating Tangents and BiTangents and reassign the indices the benefits of
-      // index drawing is removed (because of tangents and biTangents all points are becoming unique
-      actual.vertices should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-        0.0f, -1.0f)
-      actual.textures should contain theSameElementsInOrderAs Array(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f)
-      actual.normals should contain theSameElementsInOrderAs Array(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-        1.0f, 0.0f)
-      actual.indexes should contain theSameElementsInOrderAs Array(0, 1, 2, 0, 3, 1)
-      // actual.tangents should contain theSameElementsInOrderAs Array(0.0f)
-      // actual.biTangents should contain theSameElementsInOrderAs Array(0.0f)
     }
     "read an .obj file with vertices (for SimpleMesh)" in {
       val actual = WavefrontReader.simpleFrom(

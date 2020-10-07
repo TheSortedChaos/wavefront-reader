@@ -1,6 +1,6 @@
 package de.sorted.chaos.wavefront.reader
 
-import org.joml.{Vector2f, Vector3f}
+import org.joml.{ Vector2f, Vector3f }
 
 /**
   * This model class represents the .obj file, containing all the relevant data

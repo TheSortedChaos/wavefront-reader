@@ -1,7 +1,7 @@
 package de.sorted.chaos.wavefront.reader
 
 import org.joml.Vector3f
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class ColorTest extends WordSpec with Matchers {
   import Color._
