@@ -1,6 +1,6 @@
 package de.sorted.chaos.wavefront.utilities
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class FileReaderTest extends WordSpec with Matchers {
   "A FileReader" should {

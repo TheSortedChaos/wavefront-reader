@@ -2,7 +2,7 @@ package de.sorted.chaos.wavefront
 
 import de.sorted.chaos.wavefront.reader.Material
 import org.joml.Vector3f
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class WavefrontReaderTest extends WordSpec with Matchers {
 

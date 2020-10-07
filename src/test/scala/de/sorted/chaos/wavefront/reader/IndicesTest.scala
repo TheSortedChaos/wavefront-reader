@@ -1,6 +1,6 @@
 package de.sorted.chaos.wavefront.reader
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class IndicesTest extends WordSpec with Matchers {
   import Indices._

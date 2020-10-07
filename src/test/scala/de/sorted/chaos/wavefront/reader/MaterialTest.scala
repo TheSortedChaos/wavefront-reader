@@ -1,7 +1,7 @@
 package de.sorted.chaos.wavefront.reader
 
 import org.joml.Vector3f
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 class MaterialTest extends WordSpec with Matchers {
 
@@ -37,7 +37,7 @@ class MaterialTest extends WordSpec with Matchers {
     }
 
     "ignore unknown tokens" in {
-      val input = Vector("X 0.1 0.2 0.3")
+      val input  = Vector("X 0.1 0.2 0.3")
       val actual = Material.from(input)
       actual shouldBe Material(
         ambientColor     = new Vector3f(0.0f, 0.0f, 0.0f),
