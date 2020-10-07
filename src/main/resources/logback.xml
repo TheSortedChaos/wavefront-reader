@@ -13,7 +13,7 @@
         <appender-ref ref="CONSOLE"/>
     </root>
 
-    <logger name="org.sorted.chaos" level="TRACE" additivity="false">
+    <logger name="de.sorted.chaos.wavefront" level="TRACE" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 </configuration>
