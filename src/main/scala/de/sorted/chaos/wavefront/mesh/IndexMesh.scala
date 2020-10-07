@@ -1,7 +1,7 @@
 package de.sorted.chaos.wavefront.mesh
 
-import de.sorted.chaos.wavefront.reader.{Indices, Wavefront}
-import org.joml.{Vector2f, Vector3f}
+import de.sorted.chaos.wavefront.reader.{ Indices, Wavefront }
+import org.joml.{ Vector2f, Vector3f }
 
 /**
   * This model class represents a [[IndexMesh]] with vertices, texture, normals, and an index list
@@ -25,7 +25,7 @@ final case class IndexMesh(
 )
 
 object IndexMesh {
-  import de.sorted.chaos.wavefront.reader.JomlExtension.{Vector2fExtension, Vector3fExtension}
+  import de.sorted.chaos.wavefront.reader.JomlExtension.{ Vector2fExtension, Vector3fExtension }
 
   def from(wavefront: Wavefront): IndexMesh = {
     val wavefrontVertices   = wavefront.vertices

@@ -1,7 +1,7 @@
 package de.sorted.chaos.wavefront.mesh
 
 import de.sorted.chaos.wavefront.reader.Triangle
-import org.joml.{Vector2f, Vector3f}
+import org.joml.{ Vector2f, Vector3f }
 
 trait Geometry {
 

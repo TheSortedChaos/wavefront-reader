@@ -1,7 +1,7 @@
 package de.sorted.chaos.wavefront
 
-import de.sorted.chaos.wavefront.mesh.{IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh}
-import de.sorted.chaos.wavefront.reader.{Material, NormalMapping, Wavefront}
+import de.sorted.chaos.wavefront.mesh.{ IndexMesh, Mesh, SimpleIndexMesh, SimpleMesh }
+import de.sorted.chaos.wavefront.reader.{ Material, NormalMapping, Wavefront }
 import de.sorted.chaos.wavefront.utilities.FileReader
 import org.joml.Vector3f
 
@@ -132,7 +132,7 @@ object WavefrontReader {
     *   - specular color
     *   - specular exponent
     *   from a .mtl file.
- *
+    *
     * @param filename the .mtl file (represents the input data)
     * @return a [[Material]] with
     *          - Vector3f for ambient color
