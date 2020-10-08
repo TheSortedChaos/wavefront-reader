@@ -1,6 +1,5 @@
-organization := "org.sorted.chaos"
-scalaVersion := "2.13.1"
-version := "0.1.0-SNAPSHOT"
+organization := "de.sorted.chaos"
+scalaVersion := "2.13.3"
 publishMavenStyle := true
 
 lazy val root = (project in file("."))
@@ -10,12 +9,12 @@ lazy val root = (project in file("."))
 
 libraryDependencies ++= Seq(
   // Mathematics
-  "org.joml" % "joml" % "1.9.19",
+  "org.joml" % "joml" % "1.9.25",
   //Logging
-  "ch.qos.logback"       % "logback-classic" % "1.3.0-alpha5",
-  "ch.qos.logback"       % "logback-core"    % "1.3.0-alpha5",
+  "ch.qos.logback"       % "logback-classic" % "1.2.3",
+  "ch.qos.logback"       % "logback-core"    % "1.2.3",
   "org.fusesource.jansi" % "jansi"           % "1.18",
-  "org.slf4j"            % "slf4j-api"       % "2.0.0-alpha1",
+  "org.slf4j"            % "slf4j-api"       % "1.7.30",
   // Testing
   "org.scalactic" %% "scalactic" % "3.0.8",
   "org.scalatest" %% "scalatest" % "3.0.8" % "test"
@@ -33,3 +32,33 @@ addCommandAlias(
 coverageEnabled := true
 coverageMinimum := 80
 coverageFailOnMinimum := true
+
+homepage := Some(url("https://github.com/TheSortedChaos/wavefront-reader"))
+licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
+publishMavenStyle := true
+publishArtifact in Test := false
+pomIncludeRepository := { _ =>
+  false
+}
+publishTo in ThisBuild := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value) {
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  } else {
+    Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  }
+}
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/TheSortedChaos/wavefront-reader"),
+    "scm:git:git@github.com:TheSortedChaos/wavefront-reader.git"
+  )
+)
+developers := List(
+  Developer(
+    "SortedChaos",
+    "Marco Wittig",
+    "the.sorted.chaos@gmail.com",
+    url("https://github.com/TheSortedChaos/wavefront-reader")
+  )
+)
