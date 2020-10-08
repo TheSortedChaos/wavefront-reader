@@ -37,13 +37,16 @@ homepage := Some(url("https://github.com/TheSortedChaos/wavefront-reader"))
 licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 publishMavenStyle := true
 publishArtifact in Test := false
-pomIncludeRepository := { _ => false }
+pomIncludeRepository := { _ =>
+  false
+}
 publishTo in ThisBuild := {
   val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
+  if (isSnapshot.value) {
     Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+  } else {
+    Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  }
 }
 scmInfo := Some(
   ScmInfo(
@@ -52,6 +55,10 @@ scmInfo := Some(
   )
 )
 developers := List(
-  Developer("SortedChaos", "Marco Wittig", "the.sorted.chaos@gmail.com", url("https://github.com/TheSortedChaos/wavefront-reader"))
+  Developer(
+    "SortedChaos",
+    "Marco Wittig",
+    "the.sorted.chaos@gmail.com",
+    url("https://github.com/TheSortedChaos/wavefront-reader")
+  )
 )
-
