@@ -78,35 +78,22 @@ This will create a `material` model where the following data will be included:
 
 ![Cube][rotating-cube]
 
+###### Social Media
 
-### TODOs
-- add log messages
-- update readme
-  - explain indexed mesh vs normal
-  - explain fromResource vs fromFile (when added)
-- FileReader should take files (because otherwise it has to be in resources)
-  - fromResource
-    - createSimpleIndexMeshFromResource
-  - fromFile
-    - createSimpleIndexMeshFromFile
-- remove biTangents from Mesh and IndexedMesh? tangents needed in SGE
-- check the documentation (comments in code)
-- create documentation plantUml?
-- normal mapping (better math (BigDecimals?))
-- Timer measure stuff --> with LogMessages
-- add License (open source Apache 2.0?)
-- central maven release
-- remove normal mapping?
-  - using tangents with Mesh without Index works (biTangents calculated in Shader)
-  - will not work for IndexMesh
-- add sonacube analysis and badge
-- cross platform compile/release?
+[![Twitter][twitter-icon]][twitter-account]       [![Instagram][instagram-icon]][instagram-account]       [![YouTube][youtube-icon]][youtube-playlist]
   
-  
+[comment]: <> (collection of links sorted alphabetically ascending)
 [blender]: https://www.blender.org/
-[rotating-cube]: rotating-textured-cube.gif
+[rotating-cube]: documentation/images/rotating-textured-cube.gif
 [joml]: https://github.com/JOML-CI/JOML
 [lwjgl]: https://www.lwjgl.org/
 [opengl]: https://www.opengl.org/
 [vertexBufferObject]: https://en.wikipedia.org/wiki/Vertex_buffer_object
 [wavefront]: https://en.wikipedia.org/wiki/Wavefront_.obj_file
+[comment]: <> (social media)
+[instagram-account]: https://www.instagram.com/the.sorted.chaos/
+[instagram-icon]: documentation/images/social-media/instagram-icon.png
+[twitter-account]: https://twitter.com/sorted_chaos
+[twitter-icon]: documentation/images/social-media/twitter-icon.png
+[youtube-icon]: documentation/images/social-media/youtube-icon.png
+[youtube-playlist]: https://www.youtube.com/channel/UCV50VCpRGU6yst-si72t_tA/playlists
