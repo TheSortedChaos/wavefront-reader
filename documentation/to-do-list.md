@@ -1,7 +1,7 @@
 # ToDo - List
 
 This is the todo list.
-My second brain for not-forgetting stuff.
+The second brain for not-forgetting stuff.
 
 - add log messages
 - update readme
@@ -16,8 +16,7 @@ My second brain for not-forgetting stuff.
 - check the documentation (comments in code)
 - create documentation plantUml?
 - normal mapping (better math (BigDecimals?))
-- Timer measure stuff --> with LogMessages
-- add License (open source Apache 2.0?)
+- Time measure stuff --> with LogMessages
 - central maven release
 - remove normal mapping?
   - using tangents with Mesh without Index works (biTangents calculated in Shader)
