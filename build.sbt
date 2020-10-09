@@ -1,4 +1,4 @@
-organization := "de.sorted.chaos"
+organization := "com.github.thesortedchaos"
 scalaVersion := "2.13.3"
 publishMavenStyle := true
 
