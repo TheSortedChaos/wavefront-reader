@@ -1,9 +1,23 @@
 # History
 
+#### 2020-10-09
+Start preparing release version 1.0.0 for Maven Central. 
+Adding license.
+Extending readme.
+Clean up stuff.
+
+#### 2020-10-08
+I made a Maven Central Test release with version 0.1.0. 
+Worked without a problem.
+The following links helped a lot:
+ * https://medium.com/rahasak/publish-scala-library-project-to-maven-central-with-sonatype-d7edaa67d275
+ * https://leonard.io/blog/2017/01/an-in-depth-guide-to-deploying-to-maven-central/
+
 #### 2020-10-07
 After some sleeping time, I decide to move the repository to a new gitHub account.
 The plan is to push it to the central maven repository, remove the problem with normal mapping.
 Create new TravisCI (or perhaps gitHub build plan) and SonarCube account for it.
+I decided to use gitHub Actions for CI and codecov for code coverage.
 
 #### 2019-12-29
 Added missing tests.
