@@ -2,9 +2,7 @@ package de.sorted.chaos.wavefront.reader
 
 import de.sorted.chaos.wavefront.reader.Wavefront.Space
 
-import scala.util.{Failure, Success, Try}
-
-
+import scala.util.{ Failure, Success, Try }
 
 final case class ExtractTuple(lineParts: Array[String], numbers: Array[Float])
 
@@ -21,10 +19,13 @@ final case class ExtractTuple(lineParts: Array[String], numbers: Array[Float])
 trait FloatExtractor {
   protected def extract(line: String): ExtractTuple = {
     val lineParts = line.split(Space)
-    val numbers   = lineParts.tail.flatMap(str => Try(str.toFloat) match {
-      case Success(value) => Some(value)
-      case Failure(exception) => None
-    })
+    val numbers = lineParts.tail.flatMap(
+      str =>
+        Try(str.toFloat) match {
+          case Success(value)     => Some(value)
+          case Failure(exception) => None
+        }
+    )
 
     ExtractTuple(lineParts, numbers)
   }
