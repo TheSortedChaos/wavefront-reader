@@ -1,5 +1,9 @@
 # History
 
+#### 2020-10-12
+Make project cross compile able.
+Release wavefront-reader Version 1.0.0
+
 #### 2020-10-09
 Start preparing release version 1.0.0 for Maven Central. 
 Adding license.
