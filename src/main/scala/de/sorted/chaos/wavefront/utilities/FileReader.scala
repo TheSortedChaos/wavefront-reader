@@ -9,7 +9,7 @@ object FileReader {
   private final val Log = LoggerFactory.getLogger(this.getClass)
 
   def read(filename: String): Vector[String] = {
-    val maybeStream = Try(this.getClass.getResourceAsStream(filename))
+    val maybeStream = Try(this.getClass.getClassLoader.getResourceAsStream(filename))
     maybeStream match {
       case Failure(exception) =>
         Log.error(
